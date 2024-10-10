@@ -211,7 +211,7 @@ Response
 {
   "userId": 1,
   "token": "some-uuid",
-  "expiredAt": "YYYY-MM-DDTHH:MM:SSZ"
+  "expiredAt": "YYYY-MM-DDTHH:MM:SS"
 }
 ```
 2. 토큰 조회 및 대기정보 조회 API
@@ -242,7 +242,7 @@ Response
   {
     "id": 1,
     "name": "some-name",
-    "date": "YYYY-MM-DDTHH:MM:SSZ"
+    "date": "YYYY-MM-DDTHH:MM:SS"
   }
 ]
 ```
@@ -301,7 +301,7 @@ Response
   "bookingId": 1,
   "concertId": 1,
   "seatId": 1,
-  "bookedAt": "YYYY-MM-DDTHH:MM:SSZ"
+  "bookedAt": "YYYY-MM-DDTHH:MM:SS"
 }
 ```
 
