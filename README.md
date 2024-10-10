@@ -323,17 +323,10 @@ Response
 }
 ```
 2. 잔액 조회 API
-- URL: `/api/v1/points/`
+- URL: `/api/v1/users/1/points/`
 - Method: `GET`
-- Description: 유저가 포인트 충전 요청합니다.
+- Description: 유저가 포인트 잔액을 조회합니다.
 
-Request
-
-```json
-{
-  "userId": 1
-}
-```
 Response
 
 ```json

@@ -1,6 +1,5 @@
-package io.concert.booking.interfaces.api
+package io.concert.booking.interfaces.api.queue
 
-import io.concert.booking.interfaces.api.queue.TokenController
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
