@@ -247,33 +247,29 @@ Response
 ]
 ```
 2. 날짜에 해당하는 좌석 조회 API
-- URL: `/api/v1/seats`
+- URL: `/api/v1/concerts/{concertId}/seats`
 - Method: `GET`
 - Description: 특정 날짜의 예약 가능한 좌석 정보를 조회합니다.
 
 Request(Query Params)
 - `date`:`YYYY-MM-DD`
 
-```json
-{
-  "concertId": 1
-}
-```
-
 Response
 
 ```json
 {
   "concertId": 123,
-  "date": "YYYY-MM-DD",
+  "date": "YYYY-MM-DDTHH:MM:SS",
   "seats": [
     {
       "seatId": 1,
-      "price": 120.00
+      "price": 120.00,
+      "seatNumber": 1
     },
     {
       "seatId": 2,
-      "price": 80.00
+      "price": 80.00,
+      "seatNumber": 2
     }
   ]
 }
