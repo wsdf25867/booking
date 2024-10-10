@@ -34,24 +34,24 @@
 sequenceDiagram
     actor User as 사용자
     participant Service as 콘서트 예약 서비스
+    User ->> Service: 토큰 요청
+    Service ->> Service: 토큰 생성 (UUID + 대기열 정보)
+    Service ->> Service: 대기열 추가
+    Service -->> User: 토큰 반환
 
-    User->>Service: 토큰 요청
-    Service->>Service: 토큰 생성 (UUID + 대기열 정보)
-    Service-->>User: 토큰 반환
- 
     loop 매 초마다
-        User->>Service: 대기 번호 조회(토큰)
-        Service->>Service: 토큰 검증
+        User ->> Service: 대기 번호 조회(토큰)
+        Service ->> Service: 토큰 검증
         Service -->> User: Return 대기번호
         opt 대기 번호 내 순서
-            User->>Service: 예약 요청
-            Service->>Service: 토큰 검증 및 만료 및 예약
-            Service-->>User: 예약정보
+            User ->> Service: 예약 요청
+            Service ->> Service: 토큰 검증 및 만료 및 예약
+            Service -->> User: 예약정보
         end
     end
-    
-    
-        
+
+
+
 ```
 ### 예약 가능 날짜 / 좌석 API
 - 예약가능한 날짜와 해당 날짜의 좌석을 조회하는 API 를 각각 작성합니다.
@@ -96,10 +96,8 @@ sequenceDiagram
     actor User as 사용자
     participant Service as 콘서트 예약 서비스
     
-    User->>Service: 잔액 충전 요청
-    activate Service
-    Service-->>User: 잔액 반환
-    deactivate Service
+    User->>+Service: 잔액 충전 요청
+    Service-->>-User: 잔액 반환
 ```
 ### 결제 API
 - 결제 처리하고 결제 내역을 생성하는 API 를 작성합니다.
@@ -109,10 +107,13 @@ sequenceDiagram
     actor User as 사용자
     participant Service as 콘서트 예약 서비스
     
-    User->>Service: 결제 요청
-    activate Service
+    User->>+Service: 결제 요청
+    alt 결제 성공
     Service->>Service: 좌석 소유권 배정 및 토큰 만료
-    Service-->>User: 잔액 및 좌석 정보 반환
-    deactivate Service
+    Service-->>-User: 잔액 및 좌석 정보 반환
+    else 결제 실패
+    Service-->>User: 결제 실패 메세지
+    end
+    
 ```
 
