@@ -1,5 +1,7 @@
 package io.concert.booking.domain.concert
 
+import java.time.LocalDateTime
+
 class FakeConcertRepository : ConcertRepository {
     private val store: MutableMap<Long, Concert> = mutableMapOf()
     private var sequence: Long = 1
@@ -16,5 +18,9 @@ class FakeConcertRepository : ConcertRepository {
             store[it.id] = it
         }
 
+    override fun findAllByDateGreaterThan(dateTime: LocalDateTime): List<Concert> =
+        store.values.filter {
+            dateTime.isBefore(it.date)
+        }
 
 }
