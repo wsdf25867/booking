@@ -1,5 +1,6 @@
 package io.concert.booking.domain.queue
 
+import io.concert.booking.support.jpa.DomainEntity
 import jakarta.persistence.*
 import java.time.LocalDateTime
 import java.util.*
@@ -10,12 +11,10 @@ class Token(
     val token: UUID = UUID.randomUUID(),
     val userId: Long,
     val concertId: Long,
-    var expiredAt: LocalDateTime? = null,
     var status: TokenStatus = TokenStatus.WAIT,
-    val createdAt: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
-) {
+): DomainEntity() {
 
     fun passedAt(passDateTime: LocalDateTime) {
         val passableDateTime = createdAt.plusMinutes(5)

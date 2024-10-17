@@ -19,7 +19,13 @@ class TokenScheduler(
         val passTarget =
             tokenRepository.findAllByStatusAndSize(TokenStatus.WAIT, schedulerProperties.passTokenSize)
 
-        passTarget.forEach { it.passedAt(LocalDateTime.now())}
+        passTarget.forEach { it.passedAt(LocalDateTime.now()) }
+    }
+
+    @Scheduled(cron = "0 * * * * *")
+    fun expiredTokenEveryMinute() {
+        val targetTime = LocalDateTime.now().minusMinutes(10)
+        tokenRepository.deleteByStatusAndUpdatedAtBefore(TokenStatus.PASS, targetTime)
     }
 
 }

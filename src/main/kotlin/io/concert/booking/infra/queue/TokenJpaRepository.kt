@@ -4,8 +4,10 @@ import io.concert.booking.domain.queue.Token
 import io.concert.booking.domain.queue.TokenRepository
 import io.concert.booking.domain.queue.TokenStatus
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param
+import java.time.LocalDateTime
 
 interface TokenJpaRepository : JpaRepository<Token, Long>, TokenRepository {
     @Query("select count(t) from Token t where t.status = :status")
@@ -16,4 +18,8 @@ interface TokenJpaRepository : JpaRepository<Token, Long>, TokenRepository {
 
     @Query("select t from Token t where t.status = :status order by t.id asc limit :size")
     override fun findAllByStatusAndSize(status: TokenStatus, size: Int): List<Token>
+
+    @Modifying
+    @Query("delete from Token t where t.status = :status and t.updatedAt < :time")
+    override fun deleteByStatusAndUpdatedAtBefore(status: TokenStatus, time: LocalDateTime)
 }

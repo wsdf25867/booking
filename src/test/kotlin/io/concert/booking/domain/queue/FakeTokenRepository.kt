@@ -1,5 +1,6 @@
 package io.concert.booking.domain.queue
 
+import java.time.LocalDateTime
 import java.util.*
 
 class FakeTokenRepository : TokenRepository {
@@ -30,6 +31,12 @@ class FakeTokenRepository : TokenRepository {
             .filter { it.status == status }
             .sortedBy { it.id }
             .take(size)
+    }
+
+    override fun deleteByStatusAndUpdatedAtBefore(status: TokenStatus, time: LocalDateTime) {
+        store.entries
+            .filter { it.value.status == status && it.value.updatedAt < time }
+            .forEach { store.remove(it.key) }
     }
 
 }
