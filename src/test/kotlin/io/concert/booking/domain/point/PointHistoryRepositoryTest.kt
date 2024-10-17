@@ -19,4 +19,17 @@ class PointHistoryRepositoryTest {
         // then
         assertThat(saved.id).isEqualTo(1)
     }
+
+    @Test
+    fun `포인트 id로 포인트 이력을 조회할 수 있다`() {
+        // given
+        val pointHistory = PointHistory(1, 100.toBigDecimal(), PointOperationType.USE)
+        val saved = sut.save(pointHistory)
+
+        // when
+        val actual = sut.findAllByPointId(1L)
+
+        // then
+        assertThat(actual).hasSize(1)
+    }
 }

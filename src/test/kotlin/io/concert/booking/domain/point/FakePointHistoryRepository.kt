@@ -1,6 +1,6 @@
 package io.concert.booking.domain.point
 
-class FakePointHistoryRepository: PointHistoryRepository {
+class FakePointHistoryRepository : PointHistoryRepository {
 
     private val store: MutableMap<Long, PointHistory> = mutableMapOf()
     private var sequence: Long = 1
@@ -15,5 +15,9 @@ class FakePointHistoryRepository: PointHistoryRepository {
         ).also {
             store[it.id] = it
         }
+
+    override fun findAllByPointId(pointId: Long): List<PointHistory> {
+        return store.values.filter { it.pointId == pointId }
+    }
 
 }

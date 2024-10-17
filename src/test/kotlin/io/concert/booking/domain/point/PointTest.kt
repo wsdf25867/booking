@@ -19,15 +19,17 @@ class PointTest {
     }
 
     @Test
-    fun `포인트 충전에 성공하면 잔액이 증가한다`() {
+    fun `포인트 충전에 성공하면 잔액이 증가하고 이력을 반환한다`() {
         // given
         val point = Point(1L)
 
         // when
-        point.charge(100.toBigDecimal())
+        val charged = point.charge(100.toBigDecimal())
 
         // then
         assertThat(point.balance).isEqualTo(100.toBigDecimal())
+        assertThat(charged).extracting("amount", "operationType")
+            .containsExactly(100.toBigDecimal(), PointOperationType.CHARGE)
     }
 
     @Test
@@ -54,14 +56,16 @@ class PointTest {
     }
 
     @Test
-    fun `포인트 차감 성공시 잔액 감소`() {
+    fun `포인트 차감 성공시 잔액이 감소하고 이력을 반환한다`() {
         // given
         val point = Point(1L, balance = 100.toBigDecimal())
 
         // when
-        point.use(100.toBigDecimal())
+        val used = point.use(100.toBigDecimal())
 
         // then
         assertThat(point.balance).isEqualTo(BigDecimal.ZERO)
+           assertThat(used).extracting("amount", "operationType")
+            .containsExactly(100.toBigDecimal(), PointOperationType.USE)
     }
 }

@@ -12,16 +12,28 @@ class Point(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 ) {
-    fun charge(amount: BigDecimal) {
+    fun charge(amount: BigDecimal): PointHistory {
         require(amount > BigDecimal.ZERO) { "양수만 가능" }
 
         balance += amount
+
+        return PointHistory(
+            id,
+            amount,
+            PointOperationType.CHARGE,
+        )
     }
 
-    fun use(amount: BigDecimal) {
+    fun use(amount: BigDecimal): PointHistory {
         require(amount > BigDecimal.ZERO) { "양수만 가능" }
         check(amount <= balance) { "잔액 부족" }
 
         balance -= amount
+
+        return PointHistory(
+            id,
+            amount,
+            PointOperationType.USE,
+        )
     }
 }
