@@ -22,7 +22,7 @@ class BookingScheduler(
         val bookings =
             bookingRepository.findAllByStatusAndCreatedAtBefore(BookingStatus.TEMPORARY, targetTime)
         val seatIds = bookings.map { it.seatId }
-        val seats = seatRepository.findAllByIds(seatIds)
+        val seats = seatRepository.findAllByIdIn(seatIds)
 
         try {
             seats.forEach{ it.empty() }

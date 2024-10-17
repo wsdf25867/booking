@@ -12,4 +12,6 @@ interface SeatJpaRepository: JpaRepository<Seat, Long>, SeatRepository {
     @Query("select s from Seat s where s.id = :id")
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     override fun findByIdWithLock(id: Long): Seat?
+
+    override fun findAllByIdIn(seatIds: List<Long>): List<Seat>
 }

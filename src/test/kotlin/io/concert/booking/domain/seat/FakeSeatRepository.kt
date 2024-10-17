@@ -22,7 +22,7 @@ class FakeSeatRepository : SeatRepository {
         return findById(seatId)
     }
 
-    override fun findAllByIds(seatIds: List<Long>): List<Seat> {
+    override fun findAllByIdIn(seatIds: List<Long>): List<Seat> {
         return store.filter { it.key in seatIds }.values.toList()
     }
 
