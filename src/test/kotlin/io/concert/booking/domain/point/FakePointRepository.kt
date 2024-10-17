@@ -9,6 +9,10 @@ class FakePointRepository : PointRepository {
         return store.values.find { it.userId == userId }
     }
 
+    override fun findByUserIdWithLock(userId: Long): Point? {
+        return findByUserId(userId)
+    }
+
     override fun save(point: Point): Point {
         return Point(point.userId, point.balance, sequence++).also {
             store[it.id] = it
