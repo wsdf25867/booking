@@ -1,6 +1,5 @@
 package io.concert.booking.domain.booking
 
-import io.concert.booking.domain.booking.Booking
 
 class FakeBookingRepository: BookingRepository {
     private val store: MutableMap<Long, Booking> = mutableMapOf()
@@ -10,10 +9,16 @@ class FakeBookingRepository: BookingRepository {
         Booking(
             userId = booking.userId,
             seatId = booking.seatId,
-            bookingStatus = booking.bookingStatus,
+            status = booking.status,
             createdAt = booking.createdAt,
             id = sequence++,
         ).also {
             store[it.id] = it
         }
+
+    override fun findById(id: Long): Booking? = store[id]
+    override fun findByIdWithLock(id: Long): Booking? {
+        return findById(id)
+    }
+
 }
