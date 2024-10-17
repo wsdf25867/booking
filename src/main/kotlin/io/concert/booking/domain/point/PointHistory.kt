@@ -1,0 +1,16 @@
+package io.concert.booking.domain.point
+
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import java.math.BigDecimal
+import java.time.LocalDateTime
+
+class PointHistory(
+    val pointId: Long,
+    val amount: BigDecimal,
+    val operationType: PointOperationType,
+    val createdAt: LocalDateTime = LocalDateTime.now(),
+    @Id @GeneratedValue
+    val id: Long = 0,
+) {
+}
