@@ -4,4 +4,5 @@ interface SeatRepository {
 
     fun findById(id: Long): Seat?
     fun save(seat: Seat): Seat
+    fun findByIdWithLock(id: Long): Seat?
 }

@@ -11,5 +11,8 @@ class Concert(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 ) {
+    fun isNotBookableAt(dateTime: LocalDateTime): Boolean {
+        return date <= dateTime
+    }
 
 }

@@ -17,4 +17,8 @@ class FakeSeatRepository : SeatRepository {
         ).also {
             store[it.id] = it
         }
+
+    override fun findByIdWithLock(seatId: Long): Seat? {
+        return findById(seatId)
+    }
 }
