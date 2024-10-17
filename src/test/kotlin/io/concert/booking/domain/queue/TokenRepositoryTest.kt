@@ -62,5 +62,19 @@ class TokenRepositoryTest {
         // then
         assertThat(count).isEqualTo(1)
     }
+
+    @Test
+    fun `상태가 맞는 토큰을 원하는 사이즈 만큼 가져올 수 있다`() {
+        // given
+        val uuid = UUID.randomUUID()
+        val token = Token(token = uuid, userId = 1L, concertId = 1L)
+        sut.save(token)
+
+        // when
+        val actual = sut.findAllByStatusAndSize(TokenStatus.WAIT, 1)
+
+        // then
+        assertThat(actual).hasSize(1)
+    }
 }
 

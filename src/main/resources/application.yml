@@ -20,3 +20,6 @@ spring:
       ddl-auto: create
       hibernate:
         format_sql: true
+
+scheduler:
+  pass-token-size: 50

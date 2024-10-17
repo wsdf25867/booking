@@ -13,4 +13,7 @@ interface TokenJpaRepository : JpaRepository<Token, Long>, TokenRepository {
 
     @Query("select count(t) from Token t where t.status = :status and t.id < :id")
     override fun countByStatusAndIdLessThan(@Param("status") status: TokenStatus, @Param("id") id: Long): Int
+
+    @Query("select t from Token t where t.status = :status order by t.id asc limit :size")
+    override fun findAllByStatusAndSize(status: TokenStatus, size: Int): List<Token>
 }

@@ -25,4 +25,11 @@ class FakeTokenRepository : TokenRepository {
         return store.values.count { it.status == status && it.id < id }
     }
 
+    override fun findAllByStatusAndSize(status: TokenStatus, size: Int): List<Token> {
+        return store.values
+            .filter { it.status == status }
+            .sortedBy { it.id }
+            .take(size)
+    }
+
 }
