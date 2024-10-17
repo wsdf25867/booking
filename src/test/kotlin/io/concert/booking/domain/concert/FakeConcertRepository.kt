@@ -13,6 +13,7 @@ class FakeConcertRepository : ConcertRepository {
     override fun save(concert: Concert): Concert =
         Concert(
             name = concert.name,
+            date = concert.date,
             id = sequence++
         ).also {
             store[it.id] = it
