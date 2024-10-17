@@ -5,10 +5,12 @@ import io.concert.booking.domain.queue.TokenRepository
 import io.concert.booking.domain.queue.TokenStatus
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
 
 @Component
+@Transactional
 class TokenScheduler(
     private val schedulerProperties: SchedulerProperties,
     private val tokenRepository: TokenRepository,
@@ -19,7 +21,12 @@ class TokenScheduler(
         val passTarget =
             tokenRepository.findAllByStatusAndSize(TokenStatus.WAIT, schedulerProperties.passTokenSize)
 
-        passTarget.forEach { it.passedAt(LocalDateTime.now()) }
+        try {
+            passTarget.forEach { it.passedAt(LocalDateTime.now()) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     @Scheduled(cron = "0 * * * * *")

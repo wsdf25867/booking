@@ -18,4 +18,8 @@ class Booking(
         check(createdAt.plusMinutes(5) > dateTime) { "예약 가능 시간이 지났습니다." }
         status = BookingStatus.CONFIRMED
     }
+
+    fun cancelled() {
+        status = BookingStatus.CANCELLED
+    }
 }

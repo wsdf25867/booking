@@ -23,4 +23,8 @@ class Seat(
             seatId = id,
         )
     }
+
+    fun empty() {
+        status = SeatStatus.EMPTY
+    }
 }
