@@ -21,4 +21,13 @@ class FakeSeatRepository : SeatRepository {
     override fun findByIdWithLock(seatId: Long): Seat? {
         return findById(seatId)
     }
+
+    override fun findAllByIds(seatIds: List<Long>): List<Seat> {
+        return store.filter { it.key in seatIds }.values.toList()
+    }
+
+    override fun findAllByConcertIdAndStatus(concertId: Long, status: SeatStatus): List<Seat> {
+        return store.values
+            .filter { it.concertId == concertId && it.status == status }
+    }
 }

@@ -6,4 +6,5 @@ interface SeatRepository {
     fun save(seat: Seat): Seat
     fun findByIdWithLock(id: Long): Seat?
     fun findAllByIds(seatIds: List<Long>): List<Seat>
+    fun findAllByConcertIdAndStatus(concertId: Long, status: SeatStatus): List<Seat>
 }

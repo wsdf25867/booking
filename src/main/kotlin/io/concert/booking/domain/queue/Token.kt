@@ -23,5 +23,7 @@ class Token(
         }
         status = TokenStatus.PASS
     }
+
+    fun isPass(): Boolean = status == TokenStatus.PASS
 }
 
