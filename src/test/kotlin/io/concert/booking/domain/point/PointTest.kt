@@ -1,6 +1,5 @@
-package io.concert.booking.domain
+package io.concert.booking.domain.point
 
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal

@@ -1,4 +1,4 @@
-package io.concert.booking.domain
+package io.concert.booking.domain.point
 
 import jakarta.persistence.*
 import java.math.BigDecimal
