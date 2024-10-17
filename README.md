@@ -367,3 +367,6 @@ Response
   "message": "error message"
 }
 ```
+
+5. Swagger
+![img.png](img.png)
