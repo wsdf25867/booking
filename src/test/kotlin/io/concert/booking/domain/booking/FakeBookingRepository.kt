@@ -1,5 +1,7 @@
 package io.concert.booking.domain.booking
 
+import java.time.LocalDateTime
+
 
 class FakeBookingRepository: BookingRepository {
     private val store: MutableMap<Long, Booking> = mutableMapOf()
@@ -19,6 +21,10 @@ class FakeBookingRepository: BookingRepository {
     override fun findById(id: Long): Booking? = store[id]
     override fun findByIdWithLock(id: Long): Booking? {
         return findById(id)
+    }
+
+    override fun findAllByStatusAndCreatedAtBefore(status: BookingStatus, createdAt: LocalDateTime): List<Booking> {
+        return store.values.filter { it.status == status && it.createdAt < createdAt }
     }
 
 }

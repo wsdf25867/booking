@@ -66,7 +66,7 @@ class TokenServiceTest {
         // when
         // then
         assertThatIllegalArgumentException().isThrownBy {
-            sut.findToken(TokenSearchCond(1, 1, UUID.randomUUID()))
+            sut.findToken(TokenSearchCond(UUID.randomUUID()))
         }.withMessageContaining("토큰 정보")
     }
 
@@ -76,7 +76,7 @@ class TokenServiceTest {
         userRepository.save(User("some name", 1))
         concertRepository.save(Concert("some concert"))
         val saved = tokenRepository.save(Token(userId = 1, concertId = 1))
-        val param = TokenSearchCond(1, 1, saved.token)
+        val param = TokenSearchCond(saved.token)
 
         // when
         val found = sut.findToken(param)
