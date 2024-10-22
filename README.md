@@ -123,3 +123,247 @@ sequenceDiagram
     
 ```
 
+## 3. ERD
+
+### 특이사항
+- 콘서트는 좌석마다 가격이 다르기에 가격은 seats에 넣었습니다
+- 다중 인스턴스 요구사항에 맞춰 queue 도 설계
+
+```mermaid
+erDiagram
+    users {
+        int id PK
+        string name
+    }
+
+    bookings {
+        int id PK
+        int user_id FK
+        int seat_id FK
+        datetime booking_time
+    }
+
+    seats {
+        int id PK
+        int concert_id FK
+        string seat_number
+        decimal price
+    }
+
+    points {
+        int id PK
+        int user_id FK
+        decimal balance
+    }
+
+    points_history {
+        int id PK
+        int point_id FK
+        decimal amount
+        datetime timestamp
+    }
+
+    payments {
+        int id PK
+        int booking_id FK
+        decimal amount
+        string status
+    }
+
+    concerts {
+        int id PK
+        string name
+        datetime date
+    }
+    
+    queue {
+        UUID token PK
+        int user_id FK
+        int sequnce
+        datetime expiredAt
+    }
+
+    users ||--o{ bookings: has
+    users ||--|| points: has
+    points ||--o{ points_history: record
+    bookings ||--o| payments: pay
+    concerts ||--|{ seats: has
+    seats ||--|| bookings: book
+    users |o--o| queue: register
+```
+
+
+## 4. API 명세
+### 유저 토큰 발급
+1. 토큰 발급 API
+- URL: `/api/v1/tokens/`
+- Method: `POST`
+- Description: 유저에게 대기열 인증 토큰을 발급합니다.
+
+Request
+```json
+{
+  "userId": 1
+}
+```
+Response
+```json
+{
+  "userId": 1,
+  "token": "some-uuid",
+  "expiredAt": "YYYY-MM-DDTHH:MM:SS"
+}
+```
+2. 토큰 조회 및 대기정보 조회 API
+- URL: `/api/v1/tokens/{token}`
+- Method: `GET`
+- Description: 현재 대기열 정보를 보여줍니다.
+
+Response
+```json
+{
+  "queuePosition": 12,
+  "queueSize": 20
+}
+```
+### 예약 가능 날짜 / 좌석 API
+1. 예약 가능 콘서트 조회 API
+- URL: `/api/v1/conserts`
+- Method: `GET`
+- Description: 예약 가능한 콘서트 목록을 보여줍니다.
+
+Request(Query Params)
+- `date`:`YYYY-MM-DD`(optional)
+
+Response
+
+```json
+[
+  {
+    "id": 1,
+    "name": "some-name",
+    "date": "YYYY-MM-DDTHH:MM:SS"
+  }
+]
+```
+2. 날짜에 해당하는 좌석 조회 API
+- URL: `/api/v1/concerts/{concertId}/seats`
+- Method: `GET`
+- Description: 특정 날짜의 예약 가능한 좌석 정보를 조회합니다.
+
+Request(Query Params)
+- `date`:`YYYY-MM-DD`
+
+Response
+
+```json
+{
+  "concertId": 123,
+  "date": "YYYY-MM-DDTHH:MM:SS",
+  "seats": [
+    {
+      "seatId": 1,
+      "price": 120.00,
+      "seatNumber": 1
+    },
+    {
+      "seatId": 2,
+      "price": 80.00,
+      "seatNumber": 2
+    }
+  ]
+}
+```
+### 좌석 예약 요청 API
+
+- URL: `/api/v1/bookings`
+- Method: `POST`
+- Description: 유저가 좌석을 예약 요청합니다.
+
+Request
+
+```json
+{
+  "token": "token",
+  "concertId": 1,
+  "seatId": 1
+}
+```
+
+Response
+
+```json
+{
+  "bookingId": 1,
+  "concertId": 1,
+  "seatId": 1,
+  "bookedAt": "YYYY-MM-DDTHH:MM:SS"
+}
+```
+
+### 잔액 충전 / 조회 API
+1. 잔액 충전 API
+- URL: `/api/v1/points/`
+- Method: `POST`
+- Description: 유저가 포인트 충전 요청합니다.
+
+Request
+
+```json
+{
+  "userId": 1,
+  "amount": 100
+}
+```
+Response
+
+```json
+{
+  "balance": 100
+}
+```
+2. 잔액 조회 API
+- URL: `/api/v1/users/1/points/`
+- Method: `GET`
+- Description: 유저가 포인트 잔액을 조회합니다.
+
+Response
+
+```json
+{
+  "balance": 100
+}
+```
+### 결제 API
+- URL: `/api/v1/payments`
+- Method: `POST`
+- Description: 예약한 좌석에 대해 결제를 진행합니다.
+
+Request
+
+```json
+{
+  "userId": 1,
+  "concertId": 1,
+  "seatId": 1,
+  "bookingId": 1
+}
+```
+Response
+
+```json
+{
+  "paymentId": 1,
+  "paidAmount": 100,
+  "balance": 0
+}
+```
+
+### 실패
+
+Response
+```json
+{
+  "message": "error message"
+}
+```
