@@ -1,8 +1,15 @@
 package io.concert.booking.interfaces.api.concert
 
+import io.concert.booking.application.concert.ConcertService
+import io.concert.booking.application.concert.dto.ConcertDto
+import io.concert.booking.application.concert.dto.ConcertSearchDto
+import io.concert.booking.application.seat.SeatService
+import io.concert.booking.domain.concert.Concert
 import org.junit.jupiter.api.Test
+import org.mockito.BDDMockito.given
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
@@ -15,10 +22,18 @@ class ConcertControllerTest {
     @Autowired
     lateinit var mockMvc: MockMvc
 
+    @MockBean
+    lateinit var concertService: ConcertService
+
+    @MockBean
+    lateinit var seatService: SeatService
+
     @Test
     fun `예약 가능한 콘서트 목록을 보여줍니다`() {
         // given
         val date = LocalDate.of(1995, 3, 26)
+        given(concertService.findAllBookable(ConcertSearchDto(date.atStartOfDay())))
+            .willReturn(listOf(ConcertDto("some-name", date.atStartOfDay(), 1)))
         // when // then
         mockMvc.get("/api/v1/concerts") {
             queryParam("date", date.toString())

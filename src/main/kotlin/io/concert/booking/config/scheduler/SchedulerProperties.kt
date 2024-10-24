@@ -1,4 +1,4 @@
-package io.concert.booking.config.properties
+package io.concert.booking.config.scheduler
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component
