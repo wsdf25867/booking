@@ -6,9 +6,9 @@ import io.concert.booking.application.queue.dto.TokenSearchCond
 import io.concert.booking.application.queue.dto.TokenSearchResponse
 import io.concert.booking.domain.concert.ConcertRepository
 import io.concert.booking.domain.queue.Token
-import io.concert.booking.domain.user.UserRepository
 import io.concert.booking.domain.queue.TokenRepository
 import io.concert.booking.domain.queue.TokenStatus
+import io.concert.booking.domain.user.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
