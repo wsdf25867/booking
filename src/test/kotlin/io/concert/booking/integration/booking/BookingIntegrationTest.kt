@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
+import java.util.*
 
 @SpringBootTest
 @Transactional
@@ -53,7 +54,7 @@ class BookingIntegrationTest {
     fun `예약을 만들 수 있다`() {
         // given
         // when
-        val bookingDto: BookingDto = bookingService.create(BookingCreateDto(seatId = 1L, userId = 1L))
+        val bookingDto: BookingDto = bookingService.create(BookingCreateDto(seatId = 1L, UUID.randomUUID().toString()))
 
         // then
         assertThat(bookingDto).extracting("bookingId", "seatId", "userId")

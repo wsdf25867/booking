@@ -1,5 +1,7 @@
 package io.concert.booking.interfaces.api.concert
 
+import io.concert.booking.application.booking.BookingService
+import io.concert.booking.application.booking.dto.BookingCreateDto
 import io.concert.booking.application.concert.ConcertService
 import io.concert.booking.application.concert.dto.ConcertSearchDto
 import io.concert.booking.application.seat.SeatService
@@ -25,6 +27,7 @@ import java.util.*
 class ConcertController(
     private val concertService: ConcertService,
     private val seatService: SeatService,
+    private val bookingService: BookingService,
 ) : ConcertApiSpecification {
 
     @GetMapping("/concerts")
@@ -67,11 +70,11 @@ class ConcertController(
     fun book(
         @RequestBody request: BookingCreateRequest
     ): BookingResponse {
-
+        val dto = bookingService.create(BookingCreateDto(request.seatId, request.token))
         return BookingResponse(
+            dto.bookingId,
             request.concertId,
-            request.concertId,
-            request.seatId,
+            dto.seatId,
             LocalDateTime.now(),
         )
     }
