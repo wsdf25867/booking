@@ -23,7 +23,7 @@ class RequestWrapper(request: HttpServletRequest) : HttpServletRequestWrapper(re
                 try {
                     cachedBodyInputStream.available() == 0
                 } catch (e: IOException) {
-                    false;
+                    false
                 }
 
             override fun isReady(): Boolean = true
