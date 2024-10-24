@@ -20,12 +20,13 @@ class Token(
     val userId: Long,
     val concertId: Long,
     var status: TokenStatus = TokenStatus.WAIT,
+    var issuedAt: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
 ): DomainEntity() {
 
     fun passedAt(passDateTime: LocalDateTime) {
-        val duration = Duration.between(createdAt, passDateTime)
+        val duration = Duration.between(issuedAt, passDateTime)
             .toKotlinDuration()
             .absoluteValue
         val fiveMinutes = 5.toDuration(DurationUnit.MINUTES)
