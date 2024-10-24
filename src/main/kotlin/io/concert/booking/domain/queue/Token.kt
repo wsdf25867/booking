@@ -6,8 +6,12 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.time.Duration
 import java.time.LocalDateTime
 import java.util.*
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
+import kotlin.time.toKotlinDuration
 
 @Entity
 @Table(name = "queue")
@@ -21,8 +25,11 @@ class Token(
 ): DomainEntity() {
 
     fun passedAt(passDateTime: LocalDateTime) {
-        val passableDateTime = createdAt.plusMinutes(5)
-        check(passDateTime.isBefore(passableDateTime)) {
+        val duration = Duration.between(createdAt, passDateTime)
+            .toKotlinDuration()
+            .absoluteValue
+        val fiveMinutes = 5.toDuration(DurationUnit.MINUTES)
+        check(duration <= fiveMinutes) {
             "만료된 토큰입니다."
         }
         status = TokenStatus.PASS
