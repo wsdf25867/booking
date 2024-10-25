@@ -1,6 +1,6 @@
 package io.concert.booking.infra.queue
 
-import io.concert.booking.config.scheduler.SchedulerProperties
+import io.concert.booking.infra.config.SchedulerProperties
 import io.concert.booking.domain.queue.TokenRepository
 import io.concert.booking.domain.queue.TokenStatus
 import org.springframework.scheduling.annotation.Scheduled

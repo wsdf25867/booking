@@ -11,6 +11,7 @@ import io.concert.booking.domain.queue.TokenStatus
 import io.concert.booking.domain.user.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 @Service
 @Transactional
@@ -45,6 +46,13 @@ class TokenService(
         return TokenSearchResponse( token.token, queueIndex, queueSize)
     }
 
+    fun validateToken(token: String) {
+        val token = requireNotNull(tokenRepository.findByToken(UUID.fromString(token))) {
+            "토큰 정보가 존재하지 않습니다."
+        }
+
+        check(token.isPass()) { "통과되지 않은 토큰" }
+    }
 
 
 }
