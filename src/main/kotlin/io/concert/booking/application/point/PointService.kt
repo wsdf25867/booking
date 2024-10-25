@@ -2,7 +2,6 @@ package io.concert.booking.application.point
 
 import io.concert.booking.application.point.dto.PointChargeDto
 import io.concert.booking.application.point.dto.PointDto
-import io.concert.booking.domain.point.PointHistory
 import io.concert.booking.domain.point.PointHistoryRepository
 import io.concert.booking.domain.point.PointRepository
 import org.springframework.stereotype.Service

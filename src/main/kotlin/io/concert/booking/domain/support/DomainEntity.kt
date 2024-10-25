@@ -1,4 +1,4 @@
-package io.concert.booking.support.jpa
+package io.concert.booking.domain.support
 
 import jakarta.persistence.MappedSuperclass
 import org.springframework.data.annotation.CreatedDate

@@ -6,7 +6,12 @@ import io.concert.booking.application.queue.dto.TokenSearchCond
 import io.concert.booking.interfaces.dto.queue.TokenGenerateRequest
 import io.concert.booking.interfaces.dto.queue.TokenQueueResponse
 import io.concert.booking.interfaces.dto.queue.TokenResponse
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
 @RestController

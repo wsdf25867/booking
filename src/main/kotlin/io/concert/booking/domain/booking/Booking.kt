@@ -1,7 +1,13 @@
 package io.concert.booking.domain.booking
 
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
+import java.time.Duration
 import java.time.LocalDateTime
+import kotlin.time.toKotlinDuration
 
 @Entity
 @Table(name = "bookings")
@@ -15,7 +21,11 @@ class Booking(
 ) {
 
     fun confirmedAt(dateTime: LocalDateTime) {
-        check(createdAt.plusMinutes(5) > dateTime) { "예약 가능 시간이 지났습니다." }
+        val duration = Duration.between(createdAt, dateTime)
+            .toKotlinDuration()
+            .absoluteValue
+        val fiveMinute = Duration.ofMinutes(5).toKotlinDuration()
+        check(duration <= fiveMinute) { "예약 가능 시간이 지났습니다." }
         status = BookingStatus.CONFIRMED
     }
 

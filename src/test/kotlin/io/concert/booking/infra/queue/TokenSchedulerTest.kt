@@ -1,6 +1,6 @@
 package io.concert.booking.infra.queue
 
-import io.concert.booking.config.properties.SchedulerProperties
+import io.concert.booking.infra.config.SchedulerProperties
 import io.concert.booking.domain.queue.FakeTokenRepository
 import io.concert.booking.domain.queue.Token
 import io.concert.booking.domain.queue.TokenStatus

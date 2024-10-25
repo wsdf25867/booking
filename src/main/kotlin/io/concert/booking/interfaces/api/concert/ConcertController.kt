@@ -1,10 +1,16 @@
 package io.concert.booking.interfaces.api.concert
 
+import io.concert.booking.application.booking.BookingService
+import io.concert.booking.application.booking.dto.BookingCreateDto
 import io.concert.booking.application.concert.ConcertService
 import io.concert.booking.application.concert.dto.ConcertSearchDto
 import io.concert.booking.application.seat.SeatService
 import io.concert.booking.application.seat.dto.SeatBookableDto
-import io.concert.booking.interfaces.dto.concert.*
+import io.concert.booking.interfaces.dto.concert.BookingCreateRequest
+import io.concert.booking.interfaces.dto.concert.BookingResponse
+import io.concert.booking.interfaces.dto.concert.ConcertResponse
+import io.concert.booking.interfaces.dto.concert.SeatResponse
+import io.concert.booking.interfaces.dto.concert.SimpleConcertResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,6 +27,7 @@ import java.util.*
 class ConcertController(
     private val concertService: ConcertService,
     private val seatService: SeatService,
+    private val bookingService: BookingService,
 ) : ConcertApiSpecification {
 
     @GetMapping("/concerts")
@@ -63,11 +70,11 @@ class ConcertController(
     fun book(
         @RequestBody request: BookingCreateRequest
     ): BookingResponse {
-
+        val dto = bookingService.create(BookingCreateDto(request.seatId, request.token))
         return BookingResponse(
+            dto.bookingId,
             request.concertId,
-            request.concertId,
-            request.seatId,
+            dto.seatId,
             LocalDateTime.now(),
         )
     }

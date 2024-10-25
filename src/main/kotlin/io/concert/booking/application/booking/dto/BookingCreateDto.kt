@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 
 data class BookingCreateDto(
     val seatId: Long,
-    val userId: Long,
+    val token: String,
     val bookedAt: LocalDateTime = LocalDateTime.now(),
 ) {
 
