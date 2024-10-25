@@ -1,6 +1,5 @@
 package io.concert.booking.integration.point
 
-import io.concert.booking.application.payment.PaymentService
 import io.concert.booking.application.point.PointService
 import io.concert.booking.application.point.dto.PointChargeDto
 import io.concert.booking.domain.booking.Booking
@@ -14,15 +13,17 @@ import io.concert.booking.domain.seat.SeatRepository
 import io.concert.booking.domain.user.User
 import io.concert.booking.domain.user.UserRepository
 import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.transaction.annotation.Transactional
+import org.springframework.data.jpa.repository.JpaRepository
 import java.time.LocalDateTime
+import java.util.concurrent.CountDownLatch
+import java.util.concurrent.Executors
 
 @SpringBootTest
-@Transactional
 class PointIntegrationTest {
 
     @Autowired
@@ -61,6 +62,11 @@ class PointIntegrationTest {
         bookingRepository.save(booking)
     }
 
+    @AfterEach
+    fun tearDown() {
+        (pointRepository as JpaRepository<*, *>).deleteAllInBatch()
+    }
+
     @Test
     fun `포인트를 충전할 수 있다`() {
         // given
@@ -69,6 +75,33 @@ class PointIntegrationTest {
         val pointDto = sut.charge(PointChargeDto(1L, 100.toBigDecimal()))
         // then
 
-        Assertions.assertThat(pointDto.balance).isEqualTo(200.toBigDecimal())
+        Assertions.assertThat(pointDto.balance.compareTo(200.toBigDecimal())).isEqualTo(0)
+    }
+
+    @Test
+    fun `포인트를 동시에 충전할 수 있다`() {
+        // given
+        val newPoint = Point(userId = 2L)
+        pointRepository.save(newPoint)
+        val count = 50
+        val letch = CountDownLatch(count)
+        val pool = Executors.newFixedThreadPool(count)
+
+        // when
+        for (i in 1..count) {
+
+            pool.execute {
+                try {
+                    sut.charge(PointChargeDto(2L, 100.toBigDecimal()))
+                } finally {
+                    letch.countDown()
+                }
+            }
+        }
+
+        letch.await()
+        // then
+        val point = pointRepository.findByUserId(2L) ?: throw IllegalArgumentException()
+        Assertions.assertThat(point.balance.compareTo(5000.toBigDecimal())).isEqualTo(0)
     }
 }
