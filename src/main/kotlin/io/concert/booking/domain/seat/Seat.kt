@@ -1,7 +1,11 @@
 package io.concert.booking.domain.seat
 
 import io.concert.booking.domain.booking.Booking
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.math.BigDecimal
 
 @Entity

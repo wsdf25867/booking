@@ -10,23 +10,23 @@ class TokenTest {
     @Test
     fun `토큰 발급한지 5분이 지나고 pass 시 IllegalStateException 발생한다`() {
         // given
-        val createdAt = LocalDateTime.of(1995, 3, 26, 0, 0)
-        val token = Token(userId = 1, concertId = 1)
+        val issuedAt = LocalDateTime.of(1995, 3, 26, 0, 0)
+        val token = Token(userId = 1, concertId = 1, issuedAt = issuedAt)
 
         // when // then
         assertThatIllegalStateException().isThrownBy {
-            token.passedAt(createdAt.plusMinutes(5))
+            token.passedAt(issuedAt.plusMinutes(5).plusNanos(1))
         }
     }
 
     @Test
     fun `토큰은 pass 될 수 있다`() {
         // given
-        val createdAt = LocalDateTime.now()
-        val token = Token(userId = 1, concertId = 1)
+        val issuedAt = LocalDateTime.of(1995, 3, 26, 0, 0)
+        val token = Token(userId = 1, concertId = 1, issuedAt = issuedAt)
 
         // when
-        token.passedAt(createdAt)
+        token.passedAt(issuedAt)
 
         // then
         assertThat(token.status).isEqualTo(TokenStatus.PASS)
