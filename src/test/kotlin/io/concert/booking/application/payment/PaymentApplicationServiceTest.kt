@@ -17,7 +17,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
 
-class PaymentServiceTest {
+class PaymentApplicationServiceTest {
 
     private val seatRepository: SeatRepository = FakeSeatRepository()
     private val userRepository: UserRepository = FakeUserRepository()
@@ -25,7 +25,7 @@ class PaymentServiceTest {
     private val paymentRepository: PaymentRepository = FakePaymentRepository()
     private val pointRepository: PointRepository = FakePointRepository()
     private val pointHistoryRepository: PointHistoryRepository = FakePointHistoryRepository()
-    private val sut: PaymentService = PaymentService(
+    private val sut: PaymentApplicationService = PaymentApplicationService(
         paymentRepository,
         bookingRepository,
         userRepository,

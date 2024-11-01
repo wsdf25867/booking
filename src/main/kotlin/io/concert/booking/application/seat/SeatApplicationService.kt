@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class SeatService(
+class SeatApplicationService(
     private val seatRepository: SeatRepository,
     private val tokenRepository: TokenRepository,
 ) {

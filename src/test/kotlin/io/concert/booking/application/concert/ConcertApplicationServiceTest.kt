@@ -8,10 +8,10 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 
-class ConcertServiceTest {
+class ConcertApplicationServiceTest {
 
     private val concertRepository: ConcertRepository = FakeConcertRepository()
-    private val sut = ConcertService(concertRepository)
+    private val sut = ConcertApplicationService(concertRepository)
 
     @Test
     fun `조회 요청이후 날짜에 공연하는 콘서트를 반환한다`() {

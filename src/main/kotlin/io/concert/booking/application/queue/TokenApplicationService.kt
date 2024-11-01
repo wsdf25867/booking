@@ -15,7 +15,7 @@ import java.util.*
 
 @Service
 @Transactional
-class TokenService(
+class TokenApplicationService(
     private val tokenRepository: TokenRepository,
     private val userRepository: UserRepository,
     private val concertRepository: ConcertRepository,

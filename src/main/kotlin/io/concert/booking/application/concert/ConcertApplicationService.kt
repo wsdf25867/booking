@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class ConcertService(
+class ConcertApplicationService(
     private val concertRepository: ConcertRepository
 ) {
 

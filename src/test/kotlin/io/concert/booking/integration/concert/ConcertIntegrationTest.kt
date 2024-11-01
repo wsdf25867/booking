@@ -1,6 +1,6 @@
 package io.concert.booking.integration.concert
 
-import io.concert.booking.application.concert.ConcertService
+import io.concert.booking.application.concert.ConcertApplicationService
 import io.concert.booking.application.concert.dto.ConcertSearchDto
 import io.concert.booking.domain.concert.Concert
 import io.concert.booking.domain.concert.ConcertRepository
@@ -18,7 +18,7 @@ class ConcertIntegrationTest {
     @Autowired
     private lateinit var concertRepository: ConcertRepository
     @Autowired
-    private lateinit var sut: ConcertService
+    private lateinit var sut: ConcertApplicationService
 
     @BeforeEach
     fun setUp() {

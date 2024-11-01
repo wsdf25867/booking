@@ -12,23 +12,19 @@ import io.concert.booking.domain.queue.TokenRepository
 import io.concert.booking.domain.seat.FakeSeatRepository
 import io.concert.booking.domain.seat.Seat
 import io.concert.booking.domain.seat.SeatRepository
-import io.concert.booking.domain.user.FakeUserRepository
-import io.concert.booking.domain.user.User
-import io.concert.booking.domain.user.UserRepository
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.util.*
 
-class BookingServiceTest {
+class BookingApplicationServiceTest {
 
     private val seatRepository: SeatRepository = FakeSeatRepository()
     private val bookingRepository: BookingRepository = FakeBookingRepository()
     private val tokenRepository: TokenRepository = FakeTokenRepository()
     private val concertRepository: ConcertRepository = FakeConcertRepository()
 
-    private val sut: BookingService = BookingService(
+    private val sut: BookingApplicationService = BookingApplicationService(
         seatRepository,
         bookingRepository,
         concertRepository,

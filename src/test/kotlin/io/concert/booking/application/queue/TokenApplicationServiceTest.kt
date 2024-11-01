@@ -17,12 +17,12 @@ import org.junit.jupiter.api.Test
 import java.util.*
 
 
-class TokenServiceTest {
+class TokenApplicationServiceTest {
 
     private val tokenRepository: TokenRepository = FakeTokenRepository()
     private val userRepository: UserRepository = FakeUserRepository()
     private val concertRepository: ConcertRepository = FakeConcertRepository()
-    private val sut = TokenService(tokenRepository, userRepository, concertRepository)
+    private val sut = TokenApplicationService(tokenRepository, userRepository, concertRepository)
 
     @Test
     fun `토큰 생성시 유저정보가 없으면 IllegalArgumentException이 발생한다`() {

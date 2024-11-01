@@ -6,14 +6,13 @@ import io.concert.booking.domain.booking.BookingRepository
 import io.concert.booking.domain.concert.ConcertRepository
 import io.concert.booking.domain.queue.TokenRepository
 import io.concert.booking.domain.seat.SeatRepository
-import io.concert.booking.domain.user.UserRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.UUID
 
 @Service
 @Transactional
-class BookingService(
+class BookingApplicationService(
     private val seatRepository: SeatRepository,
     private val bookingRepository: BookingRepository,
     private val concertRepository: ConcertRepository,
