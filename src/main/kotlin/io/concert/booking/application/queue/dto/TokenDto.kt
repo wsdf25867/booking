@@ -2,8 +2,8 @@ package io.concert.booking.application.queue.dto
 
 import java.util.*
 
-data class TokenGenerateResponse(
-    val token: UUID,
+data class TokenDto(
+    val uuid: UUID,
     val userId: Long,
     val concertId: Long,
 ) {

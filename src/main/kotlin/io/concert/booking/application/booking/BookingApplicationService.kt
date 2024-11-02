@@ -20,7 +20,7 @@ class BookingApplicationService(
 ) {
 
     fun create(dto: BookingCreateDto): BookingDto {
-        val user = requireNotNull(tokenRepository.findByToken(UUID.fromString(dto.token))) { "유저 정보가 없습니다." }
+        val user = requireNotNull(tokenRepository.findByUuid(UUID.fromString(dto.token))) { "유저 정보가 없습니다." }
         val seat = requireNotNull(seatRepository.findByIdWithLock(dto.seatId)) { "좌석 정보가 없습니다." }
         val concert = requireNotNull(concertRepository.findById(seat.concertId)) { "콘서트 정보가 없습니다." }
 

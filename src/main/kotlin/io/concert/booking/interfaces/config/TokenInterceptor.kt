@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
+import java.util.*
 
 @Component
 class TokenInterceptor(
@@ -34,7 +35,7 @@ class TokenInterceptor(
 
     private fun validateToken(token: String): Boolean =
         try {
-            tokenApplicationService.validateToken(token)
+            tokenApplicationService.validateToken(UUID.fromString(token))
             true
         } catch (e: Exception) {
             false

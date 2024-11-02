@@ -21,14 +21,14 @@ class TokenSchedulerTest {
             tokenRepository.save(token)
         }
         val uuid = UUID.randomUUID()
-        val token = Token(token = uuid, userId = 1L, concertId = 1L)
+        val token = Token(uuid = uuid, userId = 1L, concertId = 1L)
             tokenRepository.save(token)
 
         // when
         sut.passTokenEveryMinute()
 
         // then
-        val found = tokenRepository.findByToken(uuid)
+        val found = tokenRepository.findByUuid(uuid)
         assertThat(found).extracting("status", "id")
             .containsExactly(TokenStatus.WAIT, 51L)
     }

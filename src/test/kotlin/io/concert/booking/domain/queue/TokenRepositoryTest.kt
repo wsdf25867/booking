@@ -24,10 +24,10 @@ class TokenRepositoryTest {
     fun `토큰 uuid를 통해서 토큰을 조회할 수 있다`() {
         // given
         val uuid = UUID.randomUUID()
-        val token = Token(token = uuid, userId = 1L, concertId = 1L)
+        val token = Token(uuid = uuid, userId = 1L, concertId = 1L)
         sut.save(token)
         // when
-        val found = sut.findByToken(uuid)
+        val found = sut.findByUuid(uuid)
 
         // then
         assertThat(found).isNotNull
@@ -67,7 +67,7 @@ class TokenRepositoryTest {
     fun `상태가 맞는 토큰을 원하는 사이즈 만큼 가져올 수 있다`() {
         // given
         val uuid = UUID.randomUUID()
-        val token = Token(token = uuid, userId = 1L, concertId = 1L)
+        val token = Token(uuid = uuid, userId = 1L, concertId = 1L)
         sut.save(token)
 
         // when

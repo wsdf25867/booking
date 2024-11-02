@@ -1,8 +1,6 @@
 package io.concert.booking.integration.queue
 
 import io.concert.booking.application.queue.TokenApplicationService
-import io.concert.booking.application.queue.dto.TokenGenerateParam
-import io.concert.booking.application.queue.dto.TokenSearchCond
 import io.concert.booking.domain.concert.Concert
 import io.concert.booking.domain.concert.ConcertRepository
 import io.concert.booking.domain.user.User
@@ -37,7 +35,7 @@ class TokenIntegrationTest {
         val concert = Concert("some concert", date = LocalDateTime.of(2999, 12, 31, 23, 59, 59))
         val savedConcert = concertRepository.save(concert)
         // when
-        val generateToken = sut.generateToken(TokenGenerateParam(savedUser.id, savedConcert.id))
+        val generateToken = sut.createToken(savedUser.id, savedConcert.id)
         // then
         assertThat(generateToken.userId).isEqualTo(1)
         assertThat(generateToken.concertId).isEqualTo(1)
@@ -50,9 +48,9 @@ class TokenIntegrationTest {
         val savedUser = userRepository.save(user)
         val concert = Concert("some concert", date = LocalDateTime.of(2999, 12, 31, 23, 59, 59))
         val savedConcert = concertRepository.save(concert)
-        val generateToken = sut.generateToken(TokenGenerateParam(savedUser.id, savedConcert.id))
+        val generateToken = sut.createToken(savedUser.id, savedConcert.id)
         // when
-        val findToken = sut.findToken(TokenSearchCond(generateToken.token))
+        val findToken = sut.getTokenQueueInfo(generateToken.uuid)
         // then
         assertThat(findToken.queueSize).isEqualTo(1)
         assertThat(findToken.queueIndex).isEqualTo(0)
