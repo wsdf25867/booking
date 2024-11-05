@@ -1,15 +1,16 @@
 package io.concert.booking.interfaces.config
 
-import io.concert.booking.application.queue.TokenService
+import io.concert.booking.application.queue.TokenApplicationService
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
 import org.springframework.web.method.HandlerMethod
 import org.springframework.web.servlet.HandlerInterceptor
+import java.util.*
 
 @Component
 class TokenInterceptor(
-    private val tokenService: TokenService
+    private val tokenApplicationService: TokenApplicationService
 ) : HandlerInterceptor {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         if (handler !is HandlerMethod) {
@@ -34,7 +35,7 @@ class TokenInterceptor(
 
     private fun validateToken(token: String): Boolean =
         try {
-            tokenService.validateToken(token)
+            tokenApplicationService.validateToken(UUID.fromString(token))
             true
         } catch (e: Exception) {
             false

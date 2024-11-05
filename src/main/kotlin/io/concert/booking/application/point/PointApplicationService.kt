@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class PointService(
+class PointApplicationService(
     private val pointRepository: PointRepository,
     private val pointHistoryRepository: PointHistoryRepository,
 ) {

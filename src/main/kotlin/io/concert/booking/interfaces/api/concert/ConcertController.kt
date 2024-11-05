@@ -1,10 +1,10 @@
 package io.concert.booking.interfaces.api.concert
 
-import io.concert.booking.application.booking.BookingService
+import io.concert.booking.application.booking.BookingApplicationService
 import io.concert.booking.application.booking.dto.BookingCreateDto
-import io.concert.booking.application.concert.ConcertService
+import io.concert.booking.application.concert.ConcertApplicationService
 import io.concert.booking.application.concert.dto.ConcertSearchDto
-import io.concert.booking.application.seat.SeatService
+import io.concert.booking.application.seat.SeatApplicationService
 import io.concert.booking.application.seat.dto.SeatBookableDto
 import io.concert.booking.interfaces.dto.concert.BookingCreateRequest
 import io.concert.booking.interfaces.dto.concert.BookingResponse
@@ -25,14 +25,14 @@ import java.util.*
 @RestController
 @RequestMapping("/api/v1")
 class ConcertController(
-    private val concertService: ConcertService,
-    private val seatService: SeatService,
-    private val bookingService: BookingService,
+    private val concertApplicationService: ConcertApplicationService,
+    private val seatApplicationService: SeatApplicationService,
+    private val bookingApplicationService: BookingApplicationService,
 ) : ConcertApiSpecification {
 
     @GetMapping("/concerts")
     override fun findAll(@RequestParam("date") date: LocalDate): List<SimpleConcertResponse> {
-        return concertService.findAllBookable(ConcertSearchDto(date.atStartOfDay()))
+        return concertApplicationService.findAllBookable(ConcertSearchDto(date.atStartOfDay()))
             .map {
                 SimpleConcertResponse(
                     it.id,
@@ -48,10 +48,10 @@ class ConcertController(
         @RequestParam("token") token: UUID,
         @PathVariable concertId: Long,
     ): ConcertResponse {
-        val concert = concertService.findAllBookable(ConcertSearchDto(date.atStartOfDay()))
+        val concert = concertApplicationService.findAllBookable(ConcertSearchDto(date.atStartOfDay()))
             .find { it.id == concertId }
             ?: throw IllegalArgumentException()
-        val seats = seatService.findBookable(SeatBookableDto(concertId, token))
+        val seats = seatApplicationService.findBookable(SeatBookableDto(concertId, token))
         return ConcertResponse(
             concert.id,
             concert.name,
@@ -70,7 +70,7 @@ class ConcertController(
     fun book(
         @RequestBody request: BookingCreateRequest
     ): BookingResponse {
-        val dto = bookingService.create(BookingCreateDto(request.seatId, request.token))
+        val dto = bookingApplicationService.create(BookingCreateDto(request.seatId, request.token))
         return BookingResponse(
             dto.bookingId,
             request.concertId,

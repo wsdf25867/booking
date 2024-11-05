@@ -16,14 +16,14 @@ import kotlin.time.toKotlinDuration
 @Entity
 @Table(name = "queue")
 class Token(
-    val token: UUID = UUID.randomUUID(),
+    val uuid: UUID = UUID.randomUUID(),
     val userId: Long,
     val concertId: Long,
     var status: TokenStatus = TokenStatus.WAIT,
     var issuedAt: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
-): DomainEntity() {
+) : DomainEntity() {
 
     fun passedAt(passDateTime: LocalDateTime) {
         val duration = Duration.between(issuedAt, passDateTime)
@@ -37,5 +37,12 @@ class Token(
     }
 
     fun isPass(): Boolean = status == TokenStatus.PASS
+
+
+    companion object {
+        fun create(userId: Long, concertId: Long): Token =
+            Token(userId = userId, concertId = concertId)
+
+    }
 }
 
