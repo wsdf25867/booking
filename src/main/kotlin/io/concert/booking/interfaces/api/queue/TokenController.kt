@@ -1,6 +1,6 @@
 package io.concert.booking.interfaces.api.queue
 
-import io.concert.booking.application.queue.TokenApplicationService
+import io.concert.booking.application.queue.TokenFacade
 import io.concert.booking.interfaces.dto.queue.TokenCreateRequest
 import io.concert.booking.interfaces.dto.queue.TokenQueueResponse
 import io.concert.booking.interfaces.dto.queue.TokenResponse
@@ -15,18 +15,18 @@ import java.util.*
 @RestController
 @RequestMapping("/api/v1/tokens")
 class TokenController(
-    private val tokenApplicationService: TokenApplicationService,
+    private val tokenFacade: TokenFacade,
 ) : TokenApiSpecification {
 
     @PostMapping("/")
     override fun createToken(@RequestBody request: TokenCreateRequest): TokenResponse {
-        val token = tokenApplicationService.createToken(request.userId, request.concertId)
+        val token = tokenFacade.createToken(request.userId, request.concertId)
         return TokenResponse(token.userId, token.uuid)
     }
 
     @GetMapping("/{token}")
     override fun getTokenQueueInfo(@PathVariable("token") uuid: String): TokenQueueResponse {
-        val tokenInfo = tokenApplicationService.getTokenQueueInfo(UUID.fromString(uuid))
+        val tokenInfo = tokenFacade.getTokenQueueInfo(UUID.fromString(uuid))
         return TokenQueueResponse(tokenInfo.queueIndex, tokenInfo.queueSize)
     }
 }

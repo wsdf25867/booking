@@ -37,12 +37,5 @@ class Token(
     }
 
     fun isPass(): Boolean = status == TokenStatus.PASS
-
-
-    companion object {
-        fun create(userId: Long, concertId: Long): Token =
-            Token(userId = userId, concertId = concertId)
-
-    }
 }
 

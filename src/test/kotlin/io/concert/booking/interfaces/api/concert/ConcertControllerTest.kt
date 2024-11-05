@@ -1,12 +1,12 @@
 package io.concert.booking.interfaces.api.concert
 
-import io.concert.booking.application.booking.BookingApplicationService
+import io.concert.booking.application.booking.BookingFacade
 import io.concert.booking.application.booking.dto.BookingCreateDto
 import io.concert.booking.application.booking.dto.BookingDto
-import io.concert.booking.application.concert.ConcertApplicationService
+import io.concert.booking.application.concert.ConcertFacade
 import io.concert.booking.application.concert.dto.ConcertDto
 import io.concert.booking.application.concert.dto.ConcertSearchDto
-import io.concert.booking.application.seat.SeatApplicationService
+import io.concert.booking.application.seat.SeatFacade
 import io.concert.booking.application.seat.dto.SeatBookableDto
 import io.concert.booking.application.seat.dto.SeatDto
 import org.junit.jupiter.api.Test
@@ -28,19 +28,19 @@ class ConcertControllerTest {
     lateinit var mockMvc: MockMvc
 
     @MockBean
-    lateinit var concertApplicationService: ConcertApplicationService
+    lateinit var concertFacade: ConcertFacade
 
     @MockBean
-    lateinit var seatApplicationService: SeatApplicationService
+    lateinit var seatFacade: SeatFacade
 
     @MockBean
-    lateinit var bookingApplicationService: BookingApplicationService
+    lateinit var bookingFacade: BookingFacade
 
     @Test
     fun `예약 가능한 콘서트 목록을 보여줍니다`() {
         // given
         val date = LocalDate.of(1995, 3, 26)
-        given(concertApplicationService.findAllBookable(ConcertSearchDto(date.atStartOfDay())))
+        given(concertFacade.findAllBookable(ConcertSearchDto(date.atStartOfDay())))
             .willReturn(listOf(ConcertDto("some-name", date.atStartOfDay(), 1)))
         // when // then
         mockMvc.get("/api/v1/concerts") {
@@ -60,10 +60,10 @@ class ConcertControllerTest {
     fun `예약 가능한 콘서트 좌석을 보여줍니다`() {
         // given
         val date = LocalDate.of(1995, 3, 26)
-        given(concertApplicationService.findAllBookable(ConcertSearchDto(date.atStartOfDay())))
+        given(concertFacade.findAllBookable(ConcertSearchDto(date.atStartOfDay())))
             .willReturn(listOf(ConcertDto("some-name", date.atStartOfDay(), 123)))
         val token = UUID.randomUUID()
-        given(seatApplicationService.findBookable(SeatBookableDto(concertId = 123, token)))
+        given(seatFacade.findBookable(SeatBookableDto(concertId = 123, token)))
             .willReturn(listOf(SeatDto(1, 100.toBigDecimal(), 1)))
         // when // then
         mockMvc.get("/api/v1/concerts/123/seats") {
@@ -83,7 +83,7 @@ class ConcertControllerTest {
     @Test
     fun `콘서트 좌석을 예약 요청`() {
         // given
-        given(bookingApplicationService.create(BookingCreateDto(1, "token")))
+        given(bookingFacade.create(BookingCreateDto(1, "token")))
             .willReturn(BookingDto(1, 1, 1))
 
         // when // then

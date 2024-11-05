@@ -1,6 +1,6 @@
 package io.concert.booking.interfaces.config
 
-import io.concert.booking.application.queue.TokenApplicationService
+import io.concert.booking.application.queue.TokenFacade
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component
@@ -10,7 +10,7 @@ import java.util.*
 
 @Component
 class TokenInterceptor(
-    private val tokenApplicationService: TokenApplicationService
+    private val tokenFacade: TokenFacade
 ) : HandlerInterceptor {
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         if (handler !is HandlerMethod) {
@@ -24,20 +24,17 @@ class TokenInterceptor(
             return true
         }
 
-        val token = request.getHeader("Authorization")
-        if (token.isNullOrBlank() || !validateToken(token)) {
+        val uuid = request.getHeader("Authorization")
+        if (uuid.isNullOrBlank()) {
             response.status = HttpServletResponse.SC_UNAUTHORIZED
             return false // 토큰이 유효하지 않으면 요청 차단
         }
 
+        if (!tokenFacade.canPass(UUID.fromString(uuid))) {
+            response.status = HttpServletResponse.SC_UNAUTHORIZED
+            return false
+        }
+
         return true
     }
-
-    private fun validateToken(token: String): Boolean =
-        try {
-            tokenApplicationService.validateToken(UUID.fromString(token))
-            true
-        } catch (e: Exception) {
-            false
-        }
 }

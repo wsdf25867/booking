@@ -17,14 +17,14 @@ import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.util.*
 
-class BookingApplicationServiceTest {
+class BookingFacadeTest {
 
     private val seatRepository: SeatRepository = FakeSeatRepository()
     private val bookingRepository: BookingRepository = FakeBookingRepository()
     private val tokenRepository: TokenRepository = FakeTokenRepository()
     private val concertRepository: ConcertRepository = FakeConcertRepository()
 
-    private val sut: BookingApplicationService = BookingApplicationService(
+    private val sut: BookingFacade = BookingFacade(
         seatRepository,
         bookingRepository,
         concertRepository,

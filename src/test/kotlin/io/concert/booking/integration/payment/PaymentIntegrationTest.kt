@@ -1,6 +1,6 @@
 package io.concert.booking.integration.payment
 
-import io.concert.booking.application.payment.PaymentApplicationService
+import io.concert.booking.application.payment.PaymentFacade
 import io.concert.booking.application.payment.dto.PaymentCreateDto
 import io.concert.booking.domain.booking.Booking
 import io.concert.booking.domain.booking.BookingRepository
@@ -40,7 +40,7 @@ class PaymentIntegrationTest {
     private lateinit var bookingRepository: BookingRepository
 
     @Autowired
-    private lateinit var sut: PaymentApplicationService
+    private lateinit var sut: PaymentFacade
 
     @BeforeEach
     fun setUp() {

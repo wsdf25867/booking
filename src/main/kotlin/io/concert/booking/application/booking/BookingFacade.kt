@@ -8,11 +8,11 @@ import io.concert.booking.domain.queue.TokenRepository
 import io.concert.booking.domain.seat.SeatRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
+import java.util.*
 
 @Service
 @Transactional
-class BookingApplicationService(
+class BookingFacade(
     private val seatRepository: SeatRepository,
     private val bookingRepository: BookingRepository,
     private val concertRepository: ConcertRepository,

@@ -1,7 +1,7 @@
 package io.concert.booking.domain.queue
 
 import java.time.LocalDateTime
-import java.util.UUID
+import java.util.*
 
 interface TokenRepository {
 

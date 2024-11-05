@@ -1,6 +1,6 @@
 package io.concert.booking.integration.booking
 
-import io.concert.booking.application.booking.BookingApplicationService
+import io.concert.booking.application.booking.BookingFacade
 import io.concert.booking.application.booking.dto.BookingCreateDto
 import io.concert.booking.application.booking.dto.BookingDto
 import io.concert.booking.domain.booking.BookingRepository
@@ -36,7 +36,7 @@ class BookingIntegrationTest {
     private lateinit var bookingRepository: BookingRepository
 
     @Autowired
-    private lateinit var bookingApplicationService: BookingApplicationService
+    private lateinit var bookingFacade: BookingFacade
 
     @BeforeEach
     fun setUp() {
@@ -54,7 +54,7 @@ class BookingIntegrationTest {
     fun `예약을 만들 수 있다`() {
         // given
         // when
-        val bookingDto: BookingDto = bookingApplicationService.create(BookingCreateDto(seatId = 1L, UUID.randomUUID().toString()))
+        val bookingDto: BookingDto = bookingFacade.create(BookingCreateDto(seatId = 1L, UUID.randomUUID().toString()))
 
         // then
         assertThat(bookingDto).extracting("bookingId", "seatId", "userId")

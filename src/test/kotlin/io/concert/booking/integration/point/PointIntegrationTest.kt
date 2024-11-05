@@ -1,6 +1,6 @@
 package io.concert.booking.integration.point
 
-import io.concert.booking.application.point.PointApplicationService
+import io.concert.booking.application.point.PointFacade
 import io.concert.booking.application.point.dto.PointChargeDto
 import io.concert.booking.domain.booking.Booking
 import io.concert.booking.domain.booking.BookingRepository
@@ -40,7 +40,7 @@ class PointIntegrationTest {
     private lateinit var bookingRepository: BookingRepository
 
     @Autowired
-    private lateinit var sut: PointApplicationService
+    private lateinit var sut: PointFacade
 
     @BeforeEach
     fun setUp() {

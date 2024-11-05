@@ -7,10 +7,10 @@ import io.concert.booking.domain.queue.TokenService
 import io.concert.booking.domain.user.UserService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
+import java.util.*
 
 @Service
-class TokenApplicationService(
+class TokenFacade(
     private val tokenService: TokenService,
     private val userService: UserService,
     private val concertService: ConcertService,
@@ -35,8 +35,8 @@ class TokenApplicationService(
     }
 
     @Transactional(readOnly = true)
-    fun validateToken(uuid: UUID) {
+    fun canPass(uuid: UUID): Boolean {
         val token = tokenService.getByUuid(uuid)
-        tokenService.validate(token)
+        return tokenService.isPass(token)
     }
 }
