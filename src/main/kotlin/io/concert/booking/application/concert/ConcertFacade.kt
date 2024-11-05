@@ -2,7 +2,6 @@ package io.concert.booking.application.concert
 
 import io.concert.booking.application.concert.dto.ConcertResult
 import io.concert.booking.application.concert.dto.ConcertWithSeatsResult
-import io.concert.booking.application.seat.dto.SeatResult
 import io.concert.booking.domain.concert.ConcertService
 import io.concert.booking.domain.seat.SeatService
 import org.springframework.stereotype.Service
@@ -22,8 +21,8 @@ class ConcertFacade(
 
     @Transactional(readOnly = true)
     fun getBookableWithSeats(concertId: Long): ConcertWithSeatsResult {
-        val concert = concertService.get(concertId).let { ConcertResult.from(it) }
-        val seats = seatService.getBookable(concertId).map { SeatResult.from(it) }
+        val concert = concertService.get(concertId)
+        val seats = seatService.getBookable(concertId)
 
         return ConcertWithSeatsResult.of(concert, seats)
     }
