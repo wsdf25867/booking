@@ -8,12 +8,12 @@ class FakeTokenRepository : TokenRepository {
     private val store: MutableMap<Long, Token> = mutableMapOf()
     private var sequence: Long = 1
 
-    override fun findByToken(token: UUID): Token? {
-        return store.values.find { it.token == token }
+    override fun findByUuid(token: UUID): Token? {
+        return store.values.find { it.uuid == token }
     }
 
     override fun save(token: Token): Token {
-        val toSave = Token(token = token.token, userId = token.userId, concertId = token.concertId, id = sequence++)
+        val toSave = Token(uuid = token.uuid, userId = token.userId, concertId = token.concertId, id = sequence++)
         store[toSave.id] = toSave
         return toSave
     }

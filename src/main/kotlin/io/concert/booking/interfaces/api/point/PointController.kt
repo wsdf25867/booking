@@ -1,6 +1,6 @@
 package io.concert.booking.interfaces.api.point
 
-import io.concert.booking.application.point.PointService
+import io.concert.booking.application.point.PointApplicationService
 import io.concert.booking.application.point.dto.PointChargeDto
 import io.concert.booking.interfaces.dto.point.PointChargeRequest
 import io.concert.booking.interfaces.dto.point.PointResponse
@@ -14,18 +14,18 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/points")
 class PointController(
-    private val pointService: PointService
+    private val pointApplicationService: PointApplicationService
 ): PointApiSpecification {
 
     @PatchMapping
     override fun charge(@RequestBody point: PointChargeRequest): PointResponse {
-        val pointDto = pointService.charge(PointChargeDto(point.userId, point.amount))
+        val pointDto = pointApplicationService.charge(PointChargeDto(point.userId, point.amount))
         return PointResponse(pointDto.balance)
     }
 
     @GetMapping("/users/{userId}")
     override fun getPoint(@PathVariable("userId") userId: Long):  PointResponse {
-        val pointDto = pointService.find(userId)
+        val pointDto = pointApplicationService.find(userId)
         return PointResponse(pointDto.balance)
     }
 }

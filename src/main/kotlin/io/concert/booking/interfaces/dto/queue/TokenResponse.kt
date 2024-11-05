@@ -4,7 +4,7 @@ import java.util.*
 
 data class TokenResponse(
     val userId: Long,
-    val token: UUID,
+    val uuid: UUID,
 ) {
 
 }

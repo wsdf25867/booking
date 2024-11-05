@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
-class SeatService(
+class SeatApplicationService(
     private val seatRepository: SeatRepository,
     private val tokenRepository: TokenRepository,
 ) {
 
     @Transactional(readOnly = true)
     fun findBookable(dto: SeatBookableDto): List<SeatDto> {
-        val token = requireNotNull(tokenRepository.findByToken(dto.token)) { "토큰 정보가 없습니다." }
+        val token = requireNotNull(tokenRepository.findByUuid(dto.token)) { "토큰 정보가 없습니다." }
         check(token.isPass()) { "올바르지 않은 접근" }
 
         val seats: List<Seat> = seatRepository.findAllByConcertIdAndStatus(dto.concertId, SeatStatus.EMPTY)

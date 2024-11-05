@@ -5,11 +5,11 @@ import io.concert.booking.domain.point.*
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class PointServiceTest {
+class PointApplicationServiceTest {
 
     private val pointHistoryRepository: PointHistoryRepository = FakePointHistoryRepository()
     private val pointRepository: PointRepository = FakePointRepository()
-    private val sut = PointService(pointRepository, pointHistoryRepository)
+    private val sut = PointApplicationService(pointRepository, pointHistoryRepository)
 
     @Test
     fun `포인트 조회시 정보가 없으면 IllegalArgumentException 발생`() {

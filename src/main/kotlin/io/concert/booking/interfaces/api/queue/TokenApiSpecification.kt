@@ -1,6 +1,6 @@
 package io.concert.booking.interfaces.api.queue
 
-import io.concert.booking.interfaces.dto.queue.TokenGenerateRequest
+import io.concert.booking.interfaces.dto.queue.TokenCreateRequest
 import io.concert.booking.interfaces.dto.queue.TokenQueueResponse
 import io.concert.booking.interfaces.dto.queue.TokenResponse
 import io.swagger.v3.oas.annotations.tags.Tag
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping
 interface TokenApiSpecification {
 
     @GetMapping("/{token}")
-    fun getQueueInfo(token: String): TokenQueueResponse
+    fun getTokenQueueInfo(uuid: String): TokenQueueResponse
     @PostMapping("/")
-    fun generateToken(request: TokenGenerateRequest): TokenResponse
+    fun createToken(request: TokenCreateRequest): TokenResponse
 }
