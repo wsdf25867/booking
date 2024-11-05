@@ -7,12 +7,14 @@ import io.concert.booking.interfaces.dto.concert.BookingCreateRequest
 import io.concert.booking.interfaces.dto.concert.BookingResponse
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.time.LocalDateTime
+import java.util.UUID
 
 @RestController
-@RequestMapping("/booking")
+@RequestMapping("/api/v1")
 class BookingController(
     private val bookingFacade: BookingFacade
 ): BookingApiSpecification {
@@ -20,14 +22,10 @@ class BookingController(
     @PostMapping("/bookings")
     @TokenRequired
     override fun book(
+        @RequestHeader("Authorization") uuid: UUID,
         @RequestBody request: BookingCreateRequest
     ): BookingResponse {
-        val dto = bookingFacade.create(BookingCreateDto(request.seatId, request.token))
-        return BookingResponse(
-            dto.bookingId,
-            request.concertId,
-            dto.seatId,
-            LocalDateTime.now(),
-        )
+        val result = bookingFacade.bookSeat(seatId = request.seatId, uuid = uuid)
+        return BookingResponse.from(result)
     }
 }

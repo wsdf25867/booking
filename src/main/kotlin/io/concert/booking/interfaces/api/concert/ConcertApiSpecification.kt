@@ -11,7 +11,7 @@ import java.util.*
 interface ConcertApiSpecification {
 
     @GetMapping("/concerts")
-    fun findAll(date: LocalDate = LocalDate.now()): List<ConcertResponse>
+    fun getBookable(date: LocalDate = LocalDate.now()): List<ConcertResponse>
     @GetMapping("/concerts/{concertId}/seats")
-    fun findSeats(date: LocalDate, token: UUID, concertId: Long): ConcertWithSeatsResponse
+    fun getBookableSeats(date: LocalDate, token: UUID, concertId: Long): ConcertWithSeatsResponse
 }

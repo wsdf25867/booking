@@ -2,7 +2,7 @@ package io.concert.booking.integration.booking
 
 import io.concert.booking.application.booking.BookingFacade
 import io.concert.booking.application.booking.dto.BookingCreateDto
-import io.concert.booking.application.booking.dto.BookingDto
+import io.concert.booking.application.booking.dto.BookingResult
 import io.concert.booking.domain.booking.BookingRepository
 import io.concert.booking.domain.concert.Concert
 import io.concert.booking.domain.concert.ConcertRepository
@@ -54,10 +54,10 @@ class BookingIntegrationTest {
     fun `예약을 만들 수 있다`() {
         // given
         // when
-        val bookingDto: BookingDto = bookingFacade.create(BookingCreateDto(seatId = 1L, UUID.randomUUID().toString()))
+        val bookingResult: BookingResult = bookingFacade.bookSeat(BookingCreateDto(seatId = 1L, UUID.randomUUID().toString()))
 
         // then
-        assertThat(bookingDto).extracting("bookingId", "seatId", "userId")
+        assertThat(bookingResult).extracting("bookingId", "seatId", "userId")
             .containsExactly(1L, 1L, 1L)
     }
 }

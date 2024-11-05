@@ -1,36 +1,42 @@
 package io.concert.booking.application.booking
 
-import io.concert.booking.application.booking.dto.BookingCreateDto
-import io.concert.booking.application.booking.dto.BookingDto
-import io.concert.booking.domain.booking.BookingRepository
-import io.concert.booking.domain.concert.ConcertRepository
-import io.concert.booking.domain.queue.TokenRepository
-import io.concert.booking.domain.seat.SeatRepository
+import io.concert.booking.application.booking.dto.BookingResult
+import io.concert.booking.domain.booking.BookingService
+import io.concert.booking.domain.concert.ConcertService
+import io.concert.booking.domain.queue.TokenService
+import io.concert.booking.domain.seat.SeatService
+import io.concert.booking.domain.user.UserService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.time.LocalDateTime
 import java.util.*
 
 @Service
 @Transactional
 class BookingFacade(
-    private val seatRepository: SeatRepository,
-    private val bookingRepository: BookingRepository,
-    private val concertRepository: ConcertRepository,
-    private val tokenRepository: TokenRepository,
+    private val seatService: SeatService,
+    private val bookingService: BookingService,
+    private val concertService: ConcertService,
+    private val tokenService: TokenService,
+    private val userService: UserService,
 ) {
 
-    fun create(dto: BookingCreateDto): BookingDto {
-        val user = requireNotNull(tokenRepository.findByUuid(UUID.fromString(dto.token))) { "유저 정보가 없습니다." }
-        val seat = requireNotNull(seatRepository.findByIdWithLock(dto.seatId)) { "좌석 정보가 없습니다." }
-        val concert = requireNotNull(concertRepository.findById(seat.concertId)) { "콘서트 정보가 없습니다." }
-
-        if (concert.isNotBookableAt(dto.bookedAt)) {
-            throw IllegalStateException("예약 불가능한 콘서트")
+    fun bookSeat(seatId: Long, uuid: UUID): BookingResult {
+        val token = tokenService.getByUuid(uuid)
+        check(token.isPass()) {
+            "아직 대기중인 토큰 입니다"
         }
 
-        val booking = seat.book(user.id)
-        val saved = bookingRepository.save(booking)
-        return BookingDto.from(saved)
+        val concert = concertService.get(token.concertId)
+        check(concert.isBookableAt(LocalDateTime.now())) {
+            "예약할 수 없는 콘서트"
+        }
+
+        val user = userService.get(token.userId)
+        val seat = seatService.get(seatId)
+
+        val booking = bookingService.create(user, seat)
+        return BookingResult.from(booking)
     }
 
 }

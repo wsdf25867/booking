@@ -1,6 +1,5 @@
 package io.concert.booking.interfaces.api.concert
 
-import io.concert.booking.application.booking.BookingFacade
 import io.concert.booking.application.concert.ConcertFacade
 import io.concert.booking.interfaces.dto.concert.ConcertResponse
 import io.concert.booking.interfaces.dto.concert.ConcertWithSeatsResponse
@@ -16,17 +15,16 @@ import java.util.*
 @RequestMapping("/api/v1")
 class ConcertController(
     private val concertFacade: ConcertFacade,
-    private val bookingFacade: BookingFacade,
 ) : ConcertApiSpecification {
 
     @GetMapping("/concerts")
-    override fun findAll(@RequestParam("date") date: LocalDate): List<ConcertResponse> {
+    override fun getBookable(@RequestParam("date") date: LocalDate): List<ConcertResponse> {
         return concertFacade.getBookable(date.atStartOfDay())
             .map { ConcertResponse.from(it) }
     }
 
     @GetMapping("/concerts/{concertId}/seats")
-    override fun findSeats(
+    override fun getBookableSeats(
         @RequestParam date: LocalDate,
         @RequestParam("token") token: UUID,
         @PathVariable concertId: Long,
