@@ -30,7 +30,7 @@ class ConcertIntegrationTest {
     fun `콘서트를 조회할 수 있다`() {
         // given
         // when
-        val concerts = sut.findAllBookable(ConcertSearchDto(LocalDateTime.of(1995, 3, 26, 0, 0)))
+        val concerts = sut.getBookable(LocalDateTime.of(1995, 3, 26, 0, 0))
 
         // then
         assertThat(concerts).hasSize(1)
