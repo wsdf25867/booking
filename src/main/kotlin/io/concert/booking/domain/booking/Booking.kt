@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.math.BigDecimal
 import java.time.Duration
 import java.time.LocalDateTime
 import kotlin.time.toKotlinDuration
@@ -14,6 +15,7 @@ import kotlin.time.toKotlinDuration
 class Booking(
     val userId: Long,
     val seatId: Long,
+    val price: BigDecimal,
     var status: BookingStatus = BookingStatus.TEMPORARY,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

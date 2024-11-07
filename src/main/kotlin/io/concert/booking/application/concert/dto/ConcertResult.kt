@@ -3,7 +3,7 @@ package io.concert.booking.application.concert.dto
 import io.concert.booking.domain.concert.Concert
 import java.time.LocalDateTime
 
-data class ConcertDto(
+data class ConcertResult(
     val name: String,
     val date: LocalDateTime,
     val id: Long,
@@ -11,7 +11,7 @@ data class ConcertDto(
 
     companion object {
 
-        fun from(concert: Concert): ConcertDto = ConcertDto(
+        fun from(concert: Concert): ConcertResult = ConcertResult(
             concert.name,
             concert.date,
             concert.id,

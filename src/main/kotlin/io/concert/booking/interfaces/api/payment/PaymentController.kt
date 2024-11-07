@@ -1,6 +1,6 @@
 package io.concert.booking.interfaces.api.payment
 
-import io.concert.booking.application.payment.PaymentApplicationService
+import io.concert.booking.application.payment.PaymentFacade
 import io.concert.booking.application.payment.dto.PaymentCreateDto
 import io.concert.booking.interfaces.dto.payment.PaymentRequest
 import io.concert.booking.interfaces.dto.payment.PaymentResponse
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/payments")
 class PaymentController(
-    private val paymentApplicationService: PaymentApplicationService
+    private val paymentFacade: PaymentFacade
 ): PaymentApiSpecification {
 
     @PostMapping
     override fun pay(
         @RequestBody request: PaymentRequest,
     ): PaymentResponse {
-        val paymentDto = paymentApplicationService.create(
+        val paymentDto = paymentFacade.create(
             PaymentCreateDto(
                 request.userId,
                 request.concertId,

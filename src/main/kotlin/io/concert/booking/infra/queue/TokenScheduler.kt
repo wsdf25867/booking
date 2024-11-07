@@ -1,8 +1,8 @@
 package io.concert.booking.infra.queue
 
-import io.concert.booking.infra.config.SchedulerProperties
 import io.concert.booking.domain.queue.TokenRepository
 import io.concert.booking.domain.queue.TokenStatus
+import io.concert.booking.infra.config.SchedulerProperties
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional

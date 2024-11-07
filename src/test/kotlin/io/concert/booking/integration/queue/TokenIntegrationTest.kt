@@ -1,6 +1,6 @@
 package io.concert.booking.integration.queue
 
-import io.concert.booking.application.queue.TokenApplicationService
+import io.concert.booking.application.queue.TokenFacade
 import io.concert.booking.domain.concert.Concert
 import io.concert.booking.domain.concert.ConcertRepository
 import io.concert.booking.domain.user.User
@@ -25,7 +25,7 @@ class TokenIntegrationTest {
     private lateinit var userRepository: UserRepository
 
     @Autowired
-    private lateinit var sut: TokenApplicationService
+    private lateinit var sut: TokenFacade
 
     @Test
     fun `토큰을 발급 할 수 있다`() {

@@ -1,6 +1,6 @@
 package io.concert.booking.integration.concert
 
-import io.concert.booking.application.concert.ConcertApplicationService
+import io.concert.booking.application.concert.ConcertFacade
 import io.concert.booking.application.concert.dto.ConcertSearchDto
 import io.concert.booking.domain.concert.Concert
 import io.concert.booking.domain.concert.ConcertRepository
@@ -18,7 +18,7 @@ class ConcertIntegrationTest {
     @Autowired
     private lateinit var concertRepository: ConcertRepository
     @Autowired
-    private lateinit var sut: ConcertApplicationService
+    private lateinit var sut: ConcertFacade
 
     @BeforeEach
     fun setUp() {
@@ -30,7 +30,7 @@ class ConcertIntegrationTest {
     fun `콘서트를 조회할 수 있다`() {
         // given
         // when
-        val concerts = sut.findAllBookable(ConcertSearchDto(LocalDateTime.of(1995, 3, 26, 0, 0)))
+        val concerts = sut.getBookable(LocalDateTime.of(1995, 3, 26, 0, 0))
 
         // then
         assertThat(concerts).hasSize(1)

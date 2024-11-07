@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional
 
 @Transactional
 @Service
-class PaymentApplicationService(
+class PaymentFacade(
     private val paymentRepository: PaymentRepository,
     private val bookingRepository: BookingRepository,
     private val userRepository: UserRepository,

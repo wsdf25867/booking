@@ -1,6 +1,7 @@
 package io.concert.booking.domain.seat
 
 import io.concert.booking.domain.booking.Booking
+import io.concert.booking.domain.user.User
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -19,16 +20,18 @@ class Seat(
     val id: Long = 0,
 ) {
 
-    fun book(userId: Long): Booking {
+    fun empty() {
+        status = SeatStatus.EMPTY
+    }
+
+    fun bookBy(user: User): Booking {
         check(status == SeatStatus.EMPTY) { "이미 선택된 좌석입니다." }
         status = SeatStatus.OCCUPIED
         return Booking(
-            userId = userId,
+            userId = user.id,
             seatId = id,
+            price = price,
         )
-    }
 
-    fun empty() {
-        status = SeatStatus.EMPTY
     }
 }
