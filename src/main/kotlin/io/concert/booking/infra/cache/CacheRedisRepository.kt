@@ -1,27 +1,24 @@
 package io.concert.booking.infra.cache
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.concert.booking.domain.cache.CacheRepository
 import org.springframework.data.redis.core.RedisTemplate
 import org.springframework.stereotype.Repository
+import java.util.concurrent.TimeUnit
 
 @Repository
 class CacheRedisRepository(
     private val redisTemplate: RedisTemplate<String, String>,
-    private val objectMapper: ObjectMapper,
-) : CacheRepository<String, String> {
+) : CacheRepository {
 
-    override fun <T> findById(id: String, type: Class<T>): T? {
-        return redisTemplate.opsForValue().get(id)
-            .let { objectMapper.readValue(it, type) }
-            ?: null
-    }
+    override fun findById(id: String): String? =
+        redisTemplate.opsForValue().get(id)
 
-    override fun <T> insert(id: String, value: T): T {
-        return objectMapper.writeValueAsString(value)
-            .let { redisTemplate.opsForValue().set(id, it) }
+    override fun insert(id: String, value: String): String =
+        redisTemplate.opsForValue().set(id, value)
             .let { value }
-    }
 
+    override fun insert(id: String, value: String, ttl: Long, unit: TimeUnit): String =
+        redisTemplate.opsForValue().set(id, value, ttl, unit)
+            .let { value }
 
 }

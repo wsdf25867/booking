@@ -1,8 +1,12 @@
 package io.concert.booking.domain.cache
 
-interface CacheRepository<ID, V> {
+import java.util.concurrent.TimeUnit
 
-    fun <T> findById(id: ID, type: Class<T>): T?
+interface CacheRepository {
 
-    fun <T> insert(id: ID, value: T): T
+    fun findById(id: String): String?
+
+    fun insert(id: String, value: String): String
+
+    fun insert(id: String, value: String, ttl: Long, unit: TimeUnit): String
 }
