@@ -33,9 +33,6 @@ class BookingIntegrationTest {
     private lateinit var userRepository: UserRepository
 
     @Autowired
-    private lateinit var bookingRepository: BookingRepository
-
-    @Autowired
     private lateinit var bookingFacade: BookingFacade
 
     @BeforeEach
@@ -54,7 +51,7 @@ class BookingIntegrationTest {
     fun `예약을 만들 수 있다`() {
         // given
         // when
-        val bookingResult: BookingResult = bookingFacade.bookSeat(BookingCreateDto(seatId = 1L, UUID.randomUUID().toString()))
+        val bookingResult: BookingResult = bookingFacade.bookSeat(seatId = 1L, UUID.randomUUID())
 
         // then
         assertThat(bookingResult).extracting("bookingId", "seatId", "userId")

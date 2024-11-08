@@ -1,7 +1,6 @@
 package io.concert.booking.interfaces.api.concert
 
 import io.concert.booking.application.booking.BookingFacade
-import io.concert.booking.application.booking.dto.BookingCreateDto
 import io.concert.booking.application.booking.dto.BookingResult
 import io.concert.booking.application.concert.ConcertFacade
 import io.concert.booking.application.concert.dto.ConcertResult
@@ -17,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import java.time.LocalDate
+import java.util.*
 
 @WebMvcTest(ConcertController::class)
 class ConcertControllerTest {
@@ -73,7 +73,7 @@ class ConcertControllerTest {
     @Test
     fun `콘서트 좌석을 예약 요청`() {
         // given
-        given(bookingFacade.bookSeat(BookingCreateDto(1, "token")))
+        given(bookingFacade.bookSeat(1, UUID.randomUUID()))
             .willReturn(BookingResult(1, 1, 1))
 
         // when // then
