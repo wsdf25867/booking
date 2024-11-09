@@ -11,6 +11,7 @@ class FakeBookingRepository: BookingRepository {
         Booking(
             userId = booking.userId,
             seatId = booking.seatId,
+            price = booking.price,
             status = booking.status,
             createdAt = booking.createdAt,
             id = sequence++,

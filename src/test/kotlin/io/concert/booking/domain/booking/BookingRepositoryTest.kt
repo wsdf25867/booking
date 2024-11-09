@@ -1,7 +1,6 @@
 package io.concert.booking.domain.booking
 
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class BookingRepositoryTest {
@@ -11,7 +10,7 @@ class BookingRepositoryTest {
     @Test
     fun `예약을 저장할 수 있다`() {
         // given
-        val booking = Booking(1L, 1L)
+        val booking = Booking(1L, 1L, 1000.toBigDecimal())
 
         // when
         val saved = sut.save(booking)
@@ -23,7 +22,7 @@ class BookingRepositoryTest {
     @Test
     fun `id로 예약을 조회할 수 있다`() {
         // given
-        val booking = Booking(1L, 1L)
+        val booking = Booking(1L, 1L, 1000.toBigDecimal())
         sut.save(booking)
 
         // when

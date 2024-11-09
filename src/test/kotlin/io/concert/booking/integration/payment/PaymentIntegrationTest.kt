@@ -56,7 +56,7 @@ class PaymentIntegrationTest {
         val seat = Seat(1L, 1, 100.toBigDecimal())
         seatRepository.save(seat)
 
-        val booking = Booking(1L, 1L)
+        val booking = Booking(1L, 1L, seat.price)
         bookingRepository.save(booking)
     }
 

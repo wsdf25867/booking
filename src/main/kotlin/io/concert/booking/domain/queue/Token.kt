@@ -20,10 +20,14 @@ class Token(
     val userId: Long,
     val concertId: Long,
     var status: TokenStatus = TokenStatus.WAIT,
-    var issuedAt: LocalDateTime = LocalDateTime.now(),
+    val issuedAt: LocalDateTime = LocalDateTime.now(),
+    val requestSequence: Int = 0,
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
 ) : DomainEntity() {
+
+    val passableAt: LocalDateTime =
+        issuedAt.plusSeconds((INTERVAL_SECONDS * ((requestSequence - 1) / PASS_PER_INTERVAL)))
 
     fun passedAt(passDateTime: LocalDateTime) {
         val duration = Duration.between(issuedAt, passDateTime)
@@ -36,6 +40,18 @@ class Token(
         status = TokenStatus.PASS
     }
 
-    fun isPass(): Boolean = status == TokenStatus.PASS
+    fun isPass(): Boolean = LocalDateTime.now() <= passableAt
+
+    fun currentQueueIndex(): Int {
+        val timeGap = Duration.between(LocalDateTime.now(), issuedAt).seconds.toInt()
+        return (requestSequence - (timeGap * PASS_PER_SECONDS)).toInt()
+
+    }
+
+    companion object {
+        const val INTERVAL_SECONDS: Long = 10
+        const val PASS_PER_INTERVAL: Long = 50
+        const val PASS_PER_SECONDS: Long = 5
+    }
 }
 

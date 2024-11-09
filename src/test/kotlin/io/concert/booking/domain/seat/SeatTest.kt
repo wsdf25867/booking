@@ -1,5 +1,6 @@
 package io.concert.booking.domain.seat
 
+import io.concert.booking.domain.user.User
 import org.assertj.core.api.Assertions.assertThatIllegalStateException
 import org.junit.jupiter.api.Test
 
@@ -13,7 +14,7 @@ class SeatTest {
         // when
         // then
         assertThatIllegalStateException().isThrownBy {
-            seat.book(1L)
+            seat.bookBy(User("강지우"))
         }.withMessageContaining("이미")
     }
 }
