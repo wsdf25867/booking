@@ -9,4 +9,6 @@ interface CacheRepository {
     fun insert(id: String, value: String): String
 
     fun insert(id: String, value: String, ttl: Long, unit: TimeUnit): String
+
+    fun increase(id: String): Int
 }

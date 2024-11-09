@@ -37,4 +37,8 @@ class CacheService(
         return cacheRepository.insert(key, stringValue, ttl, unit)
             .let { value }
     }
+
+    fun <ID> increase(id: ID): Int {
+        return cacheRepository.increase(objectMapper.writeValueAsString(id))
+    }
 }

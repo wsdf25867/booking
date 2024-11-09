@@ -42,9 +42,16 @@ class Token(
 
     fun isPass(): Boolean = LocalDateTime.now() <= passableAt
 
+    fun currentQueueIndex(): Int {
+        val timeGap = Duration.between(LocalDateTime.now(), issuedAt).seconds.toInt()
+        return (requestSequence - (timeGap * PASS_PER_SECONDS)).toInt()
+
+    }
+
     companion object {
         const val INTERVAL_SECONDS: Long = 10
         const val PASS_PER_INTERVAL: Long = 50
+        const val PASS_PER_SECONDS: Long = 5
     }
 }
 

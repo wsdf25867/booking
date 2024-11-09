@@ -21,4 +21,8 @@ class CacheRedisRepository(
         redisTemplate.opsForValue().set(id, value, ttl, unit)
             .let { value }
 
+    override fun increase(id: String): Int {
+        return redisTemplate.opsForValue().increment(id)
+    }
+
 }
