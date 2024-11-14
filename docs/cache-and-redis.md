@@ -121,11 +121,11 @@ sequenceDiagram
 
 ### redis
 
-![redis.png](redis.png)
+![redis.png](image/redis.png)
 
 ### db
 
-![db.png](db.png)
+![db.png](image/db.png)
 
 ### 설정값
 
