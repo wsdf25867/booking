@@ -3,6 +3,8 @@ package io.concert.booking.domain.seat
 import io.concert.booking.domain.booking.Booking
 import io.concert.booking.domain.user.User
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -15,7 +17,7 @@ class Seat(
     val concertId: Long,
     val seatNumber: Int,
     val price: BigDecimal,
-    var status: SeatStatus = SeatStatus.EMPTY,
+    @Enumerated(EnumType.STRING) var status: SeatStatus = SeatStatus.EMPTY,
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 ) {

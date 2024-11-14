@@ -22,7 +22,7 @@ class CacheRedisRepository(
             .let { value }
 
     override fun increase(id: String): Int {
-        return redisTemplate.opsForValue().increment(id)
+        return redisTemplate.opsForValue().increment(id)?.toInt() ?: 1
     }
 
 }
