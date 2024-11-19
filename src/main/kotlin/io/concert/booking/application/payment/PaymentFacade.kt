@@ -22,6 +22,7 @@ class PaymentFacade(
     private val pointRepository: PointRepository,
     private val pointHistoryRepository: PointHistoryRepository,
 ) {
+    @Transactional
     fun create(dto: PaymentCreateDto): PaymentDto {
         val seat = requireNotNull(seatRepository.findById(dto.seatId)) { "좌석 정보가 없습니다." }
         val user = requireNotNull(userRepository.findById(dto.userId)) { "유저 정보가 없습니다." }
