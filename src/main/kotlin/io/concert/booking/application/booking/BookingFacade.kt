@@ -3,7 +3,7 @@ package io.concert.booking.application.booking
 import io.concert.booking.application.booking.dto.BookingResult
 import io.concert.booking.domain.booking.BookingService
 import io.concert.booking.domain.booking.BookingValidator
-import io.concert.booking.domain.booking.SeatBookingEvent
+import io.concert.booking.domain.seat.SeatBookedEvent
 import io.concert.booking.domain.concert.ConcertService
 import io.concert.booking.domain.queue.TokenService
 import io.concert.booking.domain.seat.SeatService
@@ -36,7 +36,7 @@ class BookingFacade(
 
         val booking = bookingService.create(user, seat)
 
-        eventPublisher.publishEvent(SeatBookingEvent(booking.id))
+        eventPublisher.publishEvent(SeatBookedEvent(booking.id))
 
         return BookingResult.from(booking)
     }
