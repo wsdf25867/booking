@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import org.junit.jupiter.api.Test
 
-class SeatBookedEventHandlerTest {
+class SeatBookedKafkaEventHandlerTest {
 
     private val seatRepository = FakeSeatRepository()
     private val eventHandler = SeatBookedEventHandler(seatRepository)

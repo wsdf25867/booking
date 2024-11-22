@@ -12,6 +12,7 @@ import java.time.LocalDateTime
 class Outbox(
 
     val domain: String,
+    val topic: String,
     val domainId: Long,
     val eventType: String,
     val payload: String,
@@ -22,4 +23,11 @@ class Outbox(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
 ) {
+    fun sent() {
+        status = OutboxStatus.SENT
+    }
+
+    fun processed() {
+        status = OutboxStatus.PROCESSED
+    }
 }
