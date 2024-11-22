@@ -12,7 +12,6 @@ import java.time.LocalDateTime
 class Outbox(
 
     val domain: String,
-    val topic: String,
     val domainId: Long,
     val eventType: String,
     val payload: String,
