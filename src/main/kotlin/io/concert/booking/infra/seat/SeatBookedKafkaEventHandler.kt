@@ -61,15 +61,6 @@ class SeatBookedKafkaEventHandler(
         seat.occupied()
     }
 
-    @Transactional
-    @Scheduled(fixedRate = 1000)
-    fun retry() {
-        outboxRepository.findAllByTopicAndStatus(TOPIC, OutboxStatus.PENDING).forEach {
-            kafkaTemplate.send(TOPIC, objectMapper.writeValueAsString(it.payload))
-            it.sent()
-        }
-    }
-
     companion object {
         private const val DOMAIN_NAME = "seat"
         private const val TOPIC = "seat-booked"

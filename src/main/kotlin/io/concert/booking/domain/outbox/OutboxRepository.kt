@@ -11,5 +11,5 @@ interface OutboxRepository: JpaRepository<Outbox, Long> {
         @Param("domainId") domainId: Long
     ): Outbox?
 
-    fun findAllByTopicAndStatus(topic: String, status: OutboxStatus): List<Outbox>
+    fun findAllByStatus(status: OutboxStatus): List<Outbox>
 }
