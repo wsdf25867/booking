@@ -24,7 +24,6 @@ class SeatBookedKafkaEventHandler(
     private val objectMapper: ObjectMapper,
 ) : SeatBookedEventHandler {
 
-    @Async
     @TransactionalEventListener(SeatBookedEvent::class, phase = TransactionPhase.BEFORE_COMMIT)
     fun beforeCommit(event: SeatBookedEvent) {
         outboxRepository.save(
@@ -38,7 +37,6 @@ class SeatBookedKafkaEventHandler(
         )
     }
 
-    @Async
     @TransactionalEventListener(SeatBookedEvent::class, phase = TransactionPhase.AFTER_COMMIT)
     fun afterCommitHandle(event: SeatBookedEvent) {
         kafkaTemplate.send(TOPIC, objectMapper.writeValueAsString(event))
