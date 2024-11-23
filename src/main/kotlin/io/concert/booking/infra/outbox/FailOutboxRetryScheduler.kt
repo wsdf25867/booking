@@ -1,4 +1,4 @@
-package io.concert.booking.infra.event
+package io.concert.booking.infra.outbox
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.concert.booking.domain.outbox.OutboxRepository
@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 
 @Component
-class FailEventRetryScheduler(
+class FailOutboxRetryScheduler(
     private val outboxRepository: OutboxRepository,
     private val objectMapper: ObjectMapper,
     private val kafkaTemplate: KafkaTemplate<String, String>,
