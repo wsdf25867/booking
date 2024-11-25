@@ -36,4 +36,8 @@ class Seat(
         )
 
     }
+
+    fun occupied() {
+        status = SeatStatus.OCCUPIED
+    }
 }

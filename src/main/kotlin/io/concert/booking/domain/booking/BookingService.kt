@@ -8,8 +8,9 @@ import org.springframework.stereotype.Component
 class BookingService(
     private val bookingRepository: BookingRepository
 ) {
-    fun create(user: User, seat: Seat): Booking =
-        seat.bookBy(user)
-            .let { bookingRepository.save(it) }
+    fun create(user: User, seat: Seat): Booking {
+        val booking = Booking(user.id, seat.id, seat.price)
+        return bookingRepository.save(booking)
+    }
 
 }
