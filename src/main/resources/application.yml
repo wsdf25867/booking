@@ -3,11 +3,10 @@ spring:
     name: booking
 
   datasource:
-    hikari:
-      jdbc-url: jdbc:h2:mem:booking
-      username: sa
-      password:
-      driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
 
   h2:
     console:

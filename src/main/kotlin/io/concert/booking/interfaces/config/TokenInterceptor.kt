@@ -20,7 +20,7 @@ class TokenInterceptor(
         val clazz = handler.beanType
 
         // 클래스 또는 메서드에 @TokenRequired 가 붙어 있는지 확인
-        if (!method.isAnnotationPresent(TokenRequired::class.java) && !clazz.isAnnotationPresent(TokenRequired::class.java)) {
+        if (!method.isAnnotationPresent(TokenPassRequired::class.java) && !clazz.isAnnotationPresent(TokenPassRequired::class.java)) {
             return true
         }
 

@@ -12,7 +12,7 @@ export const options = {
 
 export default function () {
   // 여기에 테스트할 API URL을 입력하세요
-  const url = 'http://localhost:8080/api/v1/points/';
+  const url = 'http://localhost:8080/api/v1/points';
 
   // 필요한 경우 헤더 추가
   const headers = {
@@ -29,7 +29,9 @@ export default function () {
   const res = http.patch(url, payload, { headers });
 
   // 응답 결과 로깅 (옵션)
-  console.log(`Response status: ${res.status}`);
+  if (res.status > 200) {
+    console.log(`Response status: ${res.status}`);
+  }
 
   // 요청 간격 조절
   sleep(1);

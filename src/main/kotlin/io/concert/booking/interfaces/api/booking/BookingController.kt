@@ -1,31 +1,38 @@
 package io.concert.booking.interfaces.api.booking
 
-import io.concert.booking.application.booking.BookingFacade
-import io.concert.booking.application.booking.dto.BookingCreateDto
-import io.concert.booking.interfaces.config.TokenRequired
+import io.concert.booking.application.BookingCreateCommand
+import io.concert.booking.domain.booking.BookingService
+import io.concert.booking.interfaces.config.TokenPassRequired
 import io.concert.booking.interfaces.dto.concert.BookingCreateRequest
-import io.concert.booking.interfaces.dto.concert.BookingResponse
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import java.time.LocalDateTime
-import java.util.UUID
+import org.springframework.web.util.UriComponentsBuilder
+import java.util.*
 
 @RestController
 @RequestMapping("/api/v1")
 class BookingController(
-    private val bookingFacade: BookingFacade
-): BookingApiSpecification {
+    private val bookingService: BookingService
+) : BookingApiSpecification {
 
     @PostMapping("/bookings")
-    @TokenRequired
+    @TokenPassRequired
     override fun book(
         @RequestHeader("Authorization") uuid: UUID,
         @RequestBody request: BookingCreateRequest
-    ): BookingResponse {
-        val result = bookingFacade.bookSeat(seatId = request.seatId, uuid = uuid)
-        return BookingResponse.from(result)
+    ): ResponseEntity<*> {
+        val bookingId = bookingService.create(BookingCreateCommand(uuid, request.seatId, request.price))
+        return ResponseEntity
+            .created(
+                UriComponentsBuilder
+                    .fromPath("/$bookingId")
+                    .build()
+                    .toUri()
+            )
+            .build<Any>()
     }
 }

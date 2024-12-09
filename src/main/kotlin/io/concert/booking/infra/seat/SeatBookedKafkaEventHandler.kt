@@ -3,14 +3,11 @@ package io.concert.booking.infra.seat
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.concert.booking.domain.outbox.Outbox
 import io.concert.booking.domain.outbox.OutboxRepository
-import io.concert.booking.domain.outbox.OutboxStatus
-import io.concert.booking.domain.seat.SeatBookedEvent
+import io.concert.booking.domain.seat.BookingCreatedEvent
 import io.concert.booking.domain.seat.SeatBookedEventHandler
 import io.concert.booking.domain.seat.SeatRepository
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.core.KafkaTemplate
-import org.springframework.scheduling.annotation.Async
-import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.transaction.event.TransactionPhase
@@ -24,21 +21,21 @@ class SeatBookedKafkaEventHandler(
     private val objectMapper: ObjectMapper,
 ) : SeatBookedEventHandler {
 
-    @TransactionalEventListener(SeatBookedEvent::class, phase = TransactionPhase.BEFORE_COMMIT)
-    fun beforeCommit(event: SeatBookedEvent) {
+    @TransactionalEventListener(BookingCreatedEvent::class, phase = TransactionPhase.BEFORE_COMMIT)
+    fun beforeCommit(event: BookingCreatedEvent) {
         outboxRepository.save(
             Outbox(
                 DOMAIN_NAME,
                 TOPIC,
                 event.seatId,
-                SeatBookedEvent::class.java.name,
+                BookingCreatedEvent::class.java.name,
                 objectMapper.writeValueAsString(event)
             )
         )
     }
 
-    @TransactionalEventListener(SeatBookedEvent::class, phase = TransactionPhase.AFTER_COMMIT)
-    fun afterCommitHandle(event: SeatBookedEvent) {
+    @TransactionalEventListener(BookingCreatedEvent::class, phase = TransactionPhase.AFTER_COMMIT)
+    fun afterCommitHandle(event: BookingCreatedEvent) {
         kafkaTemplate.send(TOPIC, objectMapper.writeValueAsString(event))
         val outbox = requireNotNull(outboxRepository.findByTopicAndDomainId(TOPIC, event.seatId))
         outbox.sent()
@@ -48,13 +45,13 @@ class SeatBookedKafkaEventHandler(
     @Transactional
     @KafkaListener(topics = ["seat-booked"], groupId = "seats")
     fun handle(message: String) {
-        val event = objectMapper.readValue(message, SeatBookedEvent::class.java)
+        val event = objectMapper.readValue(message, BookingCreatedEvent::class.java)
         val outbox = requireNotNull(outboxRepository.findByTopicAndDomainId(TOPIC, event.seatId))
         outbox.processed()
         handle(event)
     }
 
-    override fun handle(event: SeatBookedEvent) {
+    override fun handle(event: BookingCreatedEvent) {
         val seat = requireNotNull(seatRepository.findById(event.seatId))
         seat.occupied()
     }

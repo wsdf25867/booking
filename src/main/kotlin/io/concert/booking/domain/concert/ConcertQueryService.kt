@@ -1,10 +1,12 @@
 package io.concert.booking.domain.concert
 
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 
-@Component
-class ConcertService(
+@Service
+@Transactional(readOnly = true)
+class ConcertQueryService(
     private val concertRepository: ConcertRepository
 ) {
     fun get(concertId: Long): Concert {

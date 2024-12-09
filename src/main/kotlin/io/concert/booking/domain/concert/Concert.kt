@@ -16,8 +16,8 @@ class Concert(
     val id: Long = 0,
 ) {
 
-    fun isBookableAt(dateTime: LocalDateTime): Boolean {
-        return dateTime <= date
+    fun isBookableAt(now: LocalDateTime): Boolean {
+        return now <= date
     }
 
 }
