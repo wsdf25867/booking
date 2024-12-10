@@ -1,7 +1,9 @@
 package io.concert.booking.interfaces.dto.concert
 
-data class BookingCreateRequest(
-    val seatId: Long
-) {
+import java.math.BigDecimal
 
-}
+data class BookingCreateRequest(
+
+    val seatId: Long,
+    val price: BigDecimal,
+)

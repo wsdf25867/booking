@@ -14,7 +14,7 @@ class FailOutboxRetryScheduler(
     private val kafkaTemplate: KafkaTemplate<String, String>,
 ) {
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 100000)
     fun retry() {
         outboxRepository.findAllByStatus(OutboxStatus.PENDING).forEach {
             kafkaTemplate.send(it.topic, objectMapper.writeValueAsString(it.payload))

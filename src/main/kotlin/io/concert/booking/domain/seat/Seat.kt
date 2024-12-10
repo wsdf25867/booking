@@ -40,4 +40,6 @@ class Seat(
     fun occupied() {
         status = SeatStatus.OCCUPIED
     }
+
+    fun isEmpty(): Boolean = status == SeatStatus.EMPTY
 }

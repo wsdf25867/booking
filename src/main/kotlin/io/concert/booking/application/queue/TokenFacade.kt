@@ -3,7 +3,7 @@ package io.concert.booking.application.queue
 import io.concert.booking.application.cache.CacheService
 import io.concert.booking.application.queue.dto.TokenDto
 import io.concert.booking.application.queue.dto.TokenQueueDto
-import io.concert.booking.domain.concert.ConcertService
+import io.concert.booking.domain.concert.ConcertQueryService
 import io.concert.booking.domain.queue.Token
 import io.concert.booking.domain.queue.TokenService
 import io.concert.booking.domain.user.UserService
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 class TokenFacade(
     private val tokenService: TokenService,
     private val userService: UserService,
-    private val concertService: ConcertService,
+    private val concertService: ConcertQueryService,
     private val cacheService: CacheService,
 ) {
 

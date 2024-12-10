@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference
 import io.concert.booking.application.cache.CacheService
 import io.concert.booking.application.concert.dto.ConcertResult
 import io.concert.booking.application.concert.dto.ConcertWithSeatsResult
-import io.concert.booking.domain.concert.ConcertService
+import io.concert.booking.domain.concert.ConcertQueryService
 import io.concert.booking.domain.seat.SeatService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 @Service
 class ConcertFacade(
-    private val concertService: ConcertService,
+    private val concertService: ConcertQueryService,
     private val seatService: SeatService,
     private val cacheService: CacheService,
 ) {
