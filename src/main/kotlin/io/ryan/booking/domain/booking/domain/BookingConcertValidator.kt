@@ -11,7 +11,7 @@ import java.time.Clock
 import java.time.LocalDateTime
 
 @Component
-class DefaultBookingValidator(
+class BookingConcertValidator(
     private val seatRepository: SeatRepository,
     private val concertRepository: ConcertRepository,
     private val clock: Clock,
@@ -21,7 +21,6 @@ class DefaultBookingValidator(
         val seat = getSeat(booking)
         val concert = getConcert(seat)
 
-        check(seat.isEmpty()) { "이미 선택된 좌석 입니다." }
         check(concert.isBookableAt(LocalDateTime.now(clock))) { "예약할 수 없는 콘서트입니다." }
     }
 

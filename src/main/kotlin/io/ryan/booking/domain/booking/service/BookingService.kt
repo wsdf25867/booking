@@ -14,14 +14,16 @@ import java.util.*
 class BookingService(
     private val tokenRepository: TokenRepository,
     private val bookingRepository: BookingRepository,
-    private val bookingValidator: BookingValidator
+    private val bookingValidators: List<BookingValidator>
 ) {
 
     @Transactional
     fun create(uuid: UUID, request: BookingCreateRequest): Long {
         val token = tokenRepository.findByUuid(uuid) ?: throw EntityNotFoundException("존재하지 않는 토큰 uuid: $uuid")
         val booking = Booking(userId = token.userId, seatId = request.seatId, price = request.price)
-        bookingValidator.validate(booking)
+        bookingValidators.forEach {
+            it.validate(booking)
+        }
         booking.heldTemporarily()
 
         return bookingRepository.save(booking).id
