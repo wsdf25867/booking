@@ -1,6 +1,6 @@
 package io.concert.booking.application.point.dto
 
-import io.concert.booking.domain.point.Point
+import io.concert.booking.application.point.domain.Point
 import java.math.BigDecimal
 
 data class PointDto(

@@ -1,6 +1,6 @@
 package io.concert.booking.application.concert.dto
 
-import io.concert.booking.domain.concert.Concert
+import io.concert.booking.application.concert.domain.Concert
 import java.time.LocalDateTime
 
 data class ConcertResult(

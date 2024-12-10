@@ -1,8 +1,8 @@
 package io.concert.booking.application.concert.dto
 
 import io.concert.booking.application.seat.dto.SeatResult
-import io.concert.booking.domain.concert.Concert
-import io.concert.booking.domain.seat.Seat
+import io.concert.booking.application.concert.domain.Concert
+import io.concert.booking.application.seat.domain.Seat
 
 data class ConcertWithSeatsResult(
     val concert: ConcertResult,

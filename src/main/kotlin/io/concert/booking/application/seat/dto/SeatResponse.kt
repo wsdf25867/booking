@@ -1,19 +1,18 @@
 package io.concert.booking.application.seat.dto
 
-import io.concert.booking.application.seat.domain.Seat
 import java.math.BigDecimal
 
-data class SeatResult(
+data class SeatResponse(
     val id: Long,
     val price: BigDecimal,
     val seatNumber: Int,
 ) {
     companion object {
-        fun from(seat: Seat): SeatResult {
-            return SeatResult(
+        fun from(seat: SeatResult): SeatResponse {
+            return SeatResponse(
                 seat.id,
                 seat.price,
-                seat.seatNumber,
+                seat.seatNumber
             )
         }
     }
