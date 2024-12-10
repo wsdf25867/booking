@@ -1,5 +1,6 @@
-package io.concert.booking.interfaces.config
+package io.concert.booking.config
 
+import io.concert.booking.interfaces.api.support.TokenInterceptor
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer

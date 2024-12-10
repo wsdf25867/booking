@@ -2,7 +2,7 @@ package io.concert.booking.interfaces.api.booking
 
 import io.concert.booking.application.BookingCreateCommand
 import io.concert.booking.domain.booking.BookingService
-import io.concert.booking.interfaces.config.TokenPassRequired
+import io.concert.booking.interfaces.api.support.TokenPassRequired
 import io.concert.booking.interfaces.dto.concert.BookingCreateRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

@@ -1,4 +1,4 @@
-package io.concert.booking.interfaces.config
+package io.concert.booking.interfaces.api.support
 
 import io.concert.booking.application.queue.TokenFacade
 import jakarta.servlet.http.HttpServletRequest
