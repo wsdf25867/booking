@@ -1,6 +1,6 @@
-package io.ryan.booking.domain.seat.dto
+package io.ryan.booking.domain.concert.dto
 
-import io.ryan.booking.domain.seat.domain.Seat
+import io.ryan.booking.domain.concert.domain.Seat
 import java.math.BigDecimal
 
 data class SeatResult(

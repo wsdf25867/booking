@@ -1,4 +1,4 @@
-package io.ryan.booking.domain.concert.service
+package io.ryan.booking.domain.concert.application
 
 import io.ryan.booking.domain.concert.domain.Concert
 import io.ryan.booking.domain.concert.domain.ConcertRepository

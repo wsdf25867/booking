@@ -1,4 +1,4 @@
-package io.ryan.booking.domain.point.service
+package io.ryan.booking.domain.point.application
 
 import io.ryan.booking.domain.point.dto.PointChargeDto
 import io.ryan.booking.domain.point.dto.PointDto

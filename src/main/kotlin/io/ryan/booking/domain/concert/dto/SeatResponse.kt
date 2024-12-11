@@ -1,4 +1,4 @@
-package io.ryan.booking.domain.seat.dto
+package io.ryan.booking.domain.concert.dto
 
 import java.math.BigDecimal
 

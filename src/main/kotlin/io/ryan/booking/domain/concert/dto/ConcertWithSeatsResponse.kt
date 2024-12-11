@@ -1,6 +1,4 @@
-package io.ryan.booking.domain.seat.dto
-
-import io.ryan.booking.domain.concert.dto.ConcertWithSeatsResult
+package io.ryan.booking.domain.concert.dto
 
 data class ConcertWithSeatsResponse(
     val concert: ConcertResponse,

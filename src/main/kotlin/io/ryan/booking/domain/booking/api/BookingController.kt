@@ -1,7 +1,7 @@
 package io.ryan.booking.domain.booking.api
 
 import io.ryan.booking.domain.booking.dto.BookingCreateRequest
-import io.ryan.booking.domain.booking.service.BookingService
+import io.ryan.booking.domain.booking.application.BookingService
 import io.ryan.booking.domain.queue.api.TokenPassRequired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,11 +21,10 @@ class BookingController(
     @PostMapping("/bookings")
     @TokenPassRequired
     override fun book(
-        @RequestHeader("Authorization") uuid: UUID,
         @RequestBody request: BookingCreateRequest
     ): ResponseEntity<Unit> {
 
-        val bookingId = bookingService.create(uuid, request)
+        val bookingId = bookingService.create(request)
         return ResponseEntity
             .created(
                 UriComponentsBuilder

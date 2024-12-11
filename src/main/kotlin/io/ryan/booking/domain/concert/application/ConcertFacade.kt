@@ -1,10 +1,9 @@
-package io.ryan.booking.domain.concert.service
+package io.ryan.booking.domain.concert.application
 
 import com.fasterxml.jackson.core.type.TypeReference
 import io.ryan.booking.domain.cache.service.CacheService
 import io.ryan.booking.domain.concert.dto.ConcertResult
 import io.ryan.booking.domain.concert.dto.ConcertWithSeatsResult
-import io.ryan.booking.domain.seat.service.SeatQueryService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
@@ -38,7 +37,7 @@ class ConcertFacade(
                     concertId,
                     it,
                     5,
-                    TimeUnit.DAYS,
+                    TimeUnit.MINUTES,
                     object : TypeReference<ConcertWithSeatsResult>() {})
             }
 

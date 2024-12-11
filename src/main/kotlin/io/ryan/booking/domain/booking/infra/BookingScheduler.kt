@@ -2,7 +2,7 @@ package io.ryan.booking.domain.booking.infra
 
 import io.ryan.booking.domain.booking.domain.BookingRepository
 import io.ryan.booking.domain.booking.domain.BookingStatus
-import io.ryan.booking.domain.seat.domain.SeatRepository
+import io.ryan.booking.domain.concert.domain.SeatRepository
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
@@ -25,7 +25,6 @@ class BookingScheduler(
         val seats = seatRepository.findAllByIdIn(seatIds)
 
         try {
-            seats.forEach{ it.empty() }
             bookings.forEach { it.cancelled() }
         } catch (e: Exception) {
             e.printStackTrace()

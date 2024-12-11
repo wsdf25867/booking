@@ -1,7 +1,7 @@
-package io.ryan.booking.domain.seat.service
+package io.ryan.booking.domain.concert.application
 
-import io.ryan.booking.domain.seat.dto.SeatResult
-import io.ryan.booking.domain.seat.domain.Seat
+import io.ryan.booking.domain.concert.dto.SeatResult
+import io.ryan.booking.domain.concert.domain.Seat
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

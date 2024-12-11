@@ -1,8 +1,7 @@
 package io.ryan.booking.domain.concert.dto
 
-import io.ryan.booking.domain.seat.dto.SeatResult
 import io.ryan.booking.domain.concert.domain.Concert
-import io.ryan.booking.domain.seat.domain.Seat
+import io.ryan.booking.domain.concert.domain.Seat
 
 data class ConcertWithSeatsResult(
     val concert: ConcertResult,

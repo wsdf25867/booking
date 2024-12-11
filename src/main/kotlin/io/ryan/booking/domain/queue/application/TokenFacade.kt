@@ -1,12 +1,12 @@
-package io.ryan.booking.domain.queue.service
+package io.ryan.booking.domain.queue.application
 
 import io.ryan.booking.domain.cache.service.CacheService
 import io.ryan.booking.domain.queue.dto.TokenDto
 import io.ryan.booking.domain.queue.dto.TokenQueueDto
-import io.ryan.booking.domain.concert.service.ConcertQueryService
+import io.ryan.booking.domain.concert.application.ConcertQueryService
 import io.ryan.booking.domain.queue.domain.Token
 import io.ryan.booking.domain.queue.domain.TokenService
-import io.ryan.booking.domain.user.domain.UserService
+import io.ryan.booking.domain.user.application.UserService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*

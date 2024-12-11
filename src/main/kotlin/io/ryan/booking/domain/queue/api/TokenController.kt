@@ -1,6 +1,6 @@
 package io.ryan.booking.domain.queue.api
 
-import io.ryan.booking.domain.queue.service.TokenFacade
+import io.ryan.booking.domain.queue.application.TokenFacade
 import io.ryan.booking.domain.queue.dto.TokenCreateRequest
 import io.ryan.booking.domain.queue.dto.TokenQueueResponse
 import io.ryan.booking.domain.queue.dto.TokenResponse

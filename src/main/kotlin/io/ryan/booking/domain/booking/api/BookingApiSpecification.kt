@@ -8,5 +8,5 @@ import java.util.*
 @Tag(name = "Booking")
 interface BookingApiSpecification {
 
-    fun book(uuid: UUID, request: BookingCreateRequest): ResponseEntity<*>
+    fun book(request: BookingCreateRequest): ResponseEntity<*>
 }

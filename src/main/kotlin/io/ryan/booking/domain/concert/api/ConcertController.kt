@@ -1,8 +1,8 @@
 package io.ryan.booking.domain.concert.api
 
-import io.ryan.booking.domain.concert.service.ConcertFacade
-import io.ryan.booking.domain.seat.dto.ConcertResponse
-import io.ryan.booking.domain.seat.dto.ConcertWithSeatsResponse
+import io.ryan.booking.domain.concert.dto.ConcertScheduleResponse
+import io.ryan.booking.domain.concert.dto.ConcertWithSeatsResponse
+import io.ryan.booking.domain.concert.application.ConcertQueryService
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -14,23 +14,21 @@ import java.util.*
 @RestController
 @RequestMapping("/api/v1")
 class ConcertController(
-    private val concertFacade: ConcertFacade,
+    private val concertQueryService: ConcertQueryService,
 ) : ConcertApiSpecification {
 
-    @GetMapping("/concerts")
-    override fun getBookable(@RequestParam("date") date: LocalDate): List<ConcertResponse> {
-        return concertFacade.getBookable(date.atStartOfDay())
-            .map { ConcertResponse.from(it) }
+    @GetMapping("/concert-schedules")
+    override fun getBookable(@RequestParam("date") date: LocalDate): List<ConcertScheduleResponse> {
+        TODO()
     }
 
-    @GetMapping("/concerts/{concertId}/seats")
+    @GetMapping("/concert-schedules/{concertScheduleId}/seats")
     override fun getBookableSeats(
         @RequestParam date: LocalDate,
         @RequestParam("token") token: UUID,
-        @PathVariable concertId: Long,
+        @PathVariable concertScheduleId: Long,
     ): ConcertWithSeatsResponse {
-        return concertFacade.getBookableWithSeats(concertId)
-            .let { ConcertWithSeatsResponse.from(it) }
+        TODO()
     }
 
 

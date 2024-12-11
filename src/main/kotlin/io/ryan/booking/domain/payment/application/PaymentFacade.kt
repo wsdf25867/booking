@@ -1,4 +1,4 @@
-package io.ryan.booking.domain.payment.service
+package io.ryan.booking.domain.payment.application
 
 import io.ryan.booking.domain.payment.dto.PaymentCreateDto
 import io.ryan.booking.domain.payment.dto.PaymentDto
@@ -7,7 +7,7 @@ import io.ryan.booking.domain.payment.domain.Payment
 import io.ryan.booking.domain.payment.domain.PaymentRepository
 import io.ryan.booking.domain.point.domain.PointHistoryRepository
 import io.ryan.booking.domain.point.domain.PointRepository
-import io.ryan.booking.domain.seat.domain.SeatRepository
+import io.ryan.booking.domain.concert.domain.SeatRepository
 import io.ryan.booking.domain.user.domain.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service

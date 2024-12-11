@@ -1,5 +1,7 @@
-package io.ryan.booking.domain.user.domain
+package io.ryan.booking.domain.user.application
 
+import io.ryan.booking.domain.user.domain.User
+import io.ryan.booking.domain.user.domain.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 

@@ -1,6 +1,6 @@
 package io.ryan.booking.domain.booking.infra
 
-import io.ryan.booking.domain.booking.service.BookingDataPlatformClient
+import io.ryan.booking.domain.booking.application.BookingDataPlatformClient
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component

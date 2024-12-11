@@ -1,4 +1,4 @@
-package io.ryan.booking.domain.seat.domain
+package io.ryan.booking.domain.concert.domain
 
 import io.ryan.booking.domain.booking.domain.BookingCreatedEvent
 

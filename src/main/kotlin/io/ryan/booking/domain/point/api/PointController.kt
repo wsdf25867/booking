@@ -1,6 +1,6 @@
 package io.ryan.booking.domain.point.api
 
-import io.ryan.booking.domain.point.service.PointFacade
+import io.ryan.booking.domain.point.application.PointFacade
 import io.ryan.booking.domain.point.dto.PointChargeDto
 import io.ryan.booking.domain.point.dto.PointChargeRequest
 import io.ryan.booking.domain.point.dto.PointResponse

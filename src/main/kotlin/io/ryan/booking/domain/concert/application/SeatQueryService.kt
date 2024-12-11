@@ -1,8 +1,8 @@
-package io.ryan.booking.domain.seat.service
+package io.ryan.booking.domain.concert.application
 
-import io.ryan.booking.domain.seat.domain.Seat
-import io.ryan.booking.domain.seat.domain.SeatRepository
-import io.ryan.booking.domain.seat.domain.SeatStatus
+import io.ryan.booking.domain.concert.domain.Seat
+import io.ryan.booking.domain.concert.domain.SeatRepository
+import io.ryan.booking.domain.concert.domain.SeatStatus
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component

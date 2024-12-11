@@ -1,6 +1,6 @@
 package io.ryan.booking.domain.queue.api
 
-import io.ryan.booking.domain.queue.service.TokenFacade
+import io.ryan.booking.domain.queue.application.TokenFacade
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.stereotype.Component

@@ -1,6 +1,6 @@
 package io.ryan.booking.domain.payment.api
 
-import io.ryan.booking.domain.payment.service.PaymentFacade
+import io.ryan.booking.domain.payment.application.PaymentFacade
 import io.ryan.booking.domain.payment.dto.PaymentCreateDto
 import io.ryan.booking.domain.payment.dto.PaymentRequest
 import io.ryan.booking.domain.payment.dto.PaymentResponse

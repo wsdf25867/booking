@@ -1,4 +1,4 @@
-package io.ryan.booking.domain.seat.domain
+package io.ryan.booking.domain.concert.domain
 
 import jakarta.persistence.LockModeType
 import org.springframework.data.jpa.repository.JpaRepository
