@@ -1,5 +1,6 @@
 package io.ryan.booking.domain.concert.domain
 
+import io.ryan.booking.domain.booking.domain.Booking
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue

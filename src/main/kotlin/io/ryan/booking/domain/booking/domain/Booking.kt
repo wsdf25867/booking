@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import org.springframework.data.domain.AbstractAggregateRoot
-import java.math.BigDecimal
 import java.time.Duration
 import java.time.LocalDateTime
 import kotlin.time.toKotlinDuration
@@ -15,9 +14,7 @@ import kotlin.time.toKotlinDuration
 @Table(name = "bookings")
 class Booking(
     val userId: Long,
-    val seatId: Long,
-    val price: BigDecimal,
-    var status: BookingStatus = BookingStatus.NONE,
+    var status: BookingStatus = BookingStatus.TEMPORARILY_HELD,
     val createdAt: LocalDateTime = LocalDateTime.now(),
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
@@ -36,8 +33,4 @@ class Booking(
         status = BookingStatus.CANCELLED
     }
 
-    fun heldTemporarily() {
-        status = BookingStatus.TEMPORARILY_HELD
-        registerEvent(BookingCreatedEvent(this))
-    }
 }
