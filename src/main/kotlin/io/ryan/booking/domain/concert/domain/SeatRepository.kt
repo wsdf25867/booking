@@ -13,6 +13,4 @@ interface SeatRepository : JpaRepository<Seat, Long> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     fun findByIdWithLock(id: Long): Seat?
 
-    fun findAllByIdIn(seatIds: List<Long>): List<Seat>
-    fun findAllByConcertIdAndStatus(concertId: Long, status: SeatStatus): List<Seat>
 }

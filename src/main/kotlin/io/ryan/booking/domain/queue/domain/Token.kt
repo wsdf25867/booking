@@ -1,6 +1,6 @@
 package io.ryan.booking.domain.queue.domain
 
-import io.ryan.booking.domain.support.infra.DomainEntity
+import io.ryan.booking.domain.support.BaseEntity
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
@@ -24,7 +24,7 @@ class Token(
     val requestSequence: Int = 0,
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0
-) : DomainEntity() {
+) : BaseEntity<Token>() {
 
     val passableAt: LocalDateTime =
         issuedAt.plusSeconds((INTERVAL_SECONDS * ((requestSequence - 1) / PASS_PER_INTERVAL)))

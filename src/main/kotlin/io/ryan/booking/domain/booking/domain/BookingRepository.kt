@@ -8,10 +8,13 @@ import java.time.LocalDateTime
 
 interface BookingRepository: JpaRepository<Booking, Long> {
 
-    fun save(booking: Booking): Booking
     @Query("select b from Booking b where b.id = :id")
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     fun findByIdWithLock(id: Long): Booking?
-    fun findAllByStatusAndCreatedAtBefore(status: BookingStatus, createdAt: LocalDateTime): List<Booking>
+
+    @Query("select b from Booking b " +
+            "where b.status = :status " +
+            "and b.bookingConcertSchedule.confirmableDateTime <= :currentDateTime")
+    fun findAllByStatusAndConfirmableDateTimeBefore(status: BookingStatus, currentDateTime: LocalDateTime): List<Booking>
 
 }

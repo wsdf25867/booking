@@ -19,7 +19,4 @@ class ConcertQueryService(
         }
     }
 
-    fun getBookable(date: LocalDateTime): List<Concert> =
-        concertRepository.findAllByDateGreaterThan(date)
-    
 }

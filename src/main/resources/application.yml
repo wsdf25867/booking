@@ -1,24 +1,30 @@
 spring:
-  application:
-    name: booking
+  profiles:
+    default: local
 
   datasource:
-    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:~/booking
     username: sa
     password:
-    driverClassName: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+---
+spring:
+  config:
+    activate:
+      on-profile: local
 
   h2:
     console:
       enabled: true
 
   jpa:
-    show-sql: true
     open-in-view: false
-    properties:
+    hibernate:
       ddl-auto: create
-      hibernate:
-        format_sql: true
 
   kafka:
     producer:
@@ -39,3 +45,25 @@ spring:
 
 scheduler:
   pass-token-size: 50
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  sql:
+    init:
+      mode: never
+
+
+

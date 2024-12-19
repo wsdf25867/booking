@@ -1,12 +1,14 @@
 package io.ryan.booking.domain.support.api
 
+import jakarta.persistence.EntityNotFoundException
 import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 
 @RestControllerAdvice
-class GlobalExceptionHandler {
+class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(IllegalArgumentException::class)
     fun handleIllegalArgumentException(e: IllegalArgumentException): ResponseEntity<HttpApiErrorResponse> {
@@ -22,13 +24,12 @@ class GlobalExceptionHandler {
             .body(HttpApiErrorResponse(e.message ?: ""))
     }
 
-    @ExceptionHandler(Exception::class)
-    fun handleException(e: Exception): ResponseEntity<HttpApiErrorResponse> {
-        log.error("handleException: ", e)
-        return ResponseEntity.internalServerError()
-            .body(HttpApiErrorResponse("Internal Server Error"))
+    @ExceptionHandler(EntityNotFoundException::class)
+    fun handleEntityNotFoundException(e: EntityNotFoundException): ResponseEntity<HttpApiErrorResponse> {
+        log.info("handleEntityNotFoundException: ", e)
+        return ResponseEntity.unprocessableEntity()
+            .body(HttpApiErrorResponse(e.message ?: ""))
     }
-
 
     companion object {
         private val log = LoggerFactory.getLogger(RestControllerAdvice::class.java)

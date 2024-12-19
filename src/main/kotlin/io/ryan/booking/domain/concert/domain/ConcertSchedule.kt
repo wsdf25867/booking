@@ -1,6 +1,5 @@
 package io.ryan.booking.domain.concert.domain
 
-import io.ryan.booking.domain.booking.domain.Booking
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
@@ -15,13 +14,13 @@ import java.time.LocalDateTime
 class ConcertSchedule(
     @ManyToOne(fetch = FetchType.LAZY)
     val concert: Concert,
-    val concertTime: LocalDateTime = LocalDateTime.now(),
+    val concertDateTime: LocalDateTime = LocalDateTime.now(),
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 ) {
 
-    fun isBookableAt(now: LocalDateTime): Boolean {
-        return now <= concertTime
+    fun isBookableWith(currentDateTime: LocalDateTime): Boolean {
+        return currentDateTime <= concertDateTime
     }
 }

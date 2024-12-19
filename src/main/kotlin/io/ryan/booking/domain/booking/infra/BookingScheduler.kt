@@ -20,14 +20,8 @@ class BookingScheduler(
     fun expiredBooking() {
         val targetTime = LocalDateTime.now().minusMinutes(5)
         val bookings =
-            bookingRepository.findAllByStatusAndCreatedAtBefore(BookingStatus.TEMPORARILY_HELD, targetTime)
-        val seatIds = bookings.map { it.seatId }
-        val seats = seatRepository.findAllByIdIn(seatIds)
+            bookingRepository.findAllByStatusAndConfirmableDateTimeBefore(BookingStatus.TEMPORARILY_HELD, targetTime)
 
-        try {
-            bookings.forEach { it.cancelled() }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+        bookings.forEach { it.cancelled() }
     }
 }

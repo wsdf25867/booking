@@ -26,6 +26,8 @@ class ConcertScheduleSeat(
     val id: Long = 0,
 ) {
 
+    val price = seat.price
+
     fun empty() {
         status = SeatStatus.EMPTY
     }

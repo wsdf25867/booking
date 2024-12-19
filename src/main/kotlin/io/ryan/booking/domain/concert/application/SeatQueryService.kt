@@ -15,7 +15,4 @@ class SeatQueryService(
     fun get(seatId: Long): Seat =
         seatRepository.findByIdOrNull(seatId) ?: throw EntityNotFoundException("없는 좌석 정보 id: $seatId")
 
-    fun getAllEmpty(concertId: Long): List<Seat> =
-        seatRepository.findAllByConcertIdAndStatus(concertId, SeatStatus.EMPTY)
-
 }

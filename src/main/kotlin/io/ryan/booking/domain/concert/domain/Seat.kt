@@ -14,7 +14,6 @@ import java.math.BigDecimal
 @Entity
 @Table(name = "seats")
 class Seat(
-    val place: String,
     val seatNumber: Int,
     val price: BigDecimal,
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

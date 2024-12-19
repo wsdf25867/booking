@@ -4,6 +4,4 @@ data class BookingCreatedEvent(
     val booking: Booking
 ) {
 
-    val seatId: Long
-        get() = booking.seatId
 }
