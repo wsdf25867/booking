@@ -1,6 +1,6 @@
 package io.ryan.booking.domain.point.application
 
-import io.ryan.booking.domain.point.dto.PointChargeServiceRequest
+import io.ryan.booking.domain.point.dto.PointChargeCommand
 import io.ryan.booking.domain.point.domain.PointHistoryRepository
 import io.ryan.booking.domain.point.domain.PointRepository
 import io.ryan.booking.domain.point.dto.PointResponse
@@ -25,7 +25,7 @@ class PointService(
     }
 
     @Transactional
-    fun charge(request: PointChargeServiceRequest): PointResponse {
+    fun charge(request: PointChargeCommand): PointResponse {
         val point = pointRepository.findByUserIdWithLock(request.userId)
             ?: throw EntityNotFoundException("포인트 정보가 존재하지 않습니다. userId = ${request.userId}")
 

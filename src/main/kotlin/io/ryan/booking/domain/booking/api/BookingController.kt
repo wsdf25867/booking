@@ -15,14 +15,13 @@ import org.springframework.web.util.UriComponentsBuilder
 class BookingController(
     private val bookingService: BookingService
 ) : BookingApiSpecification {
-
     @PostMapping("/bookings")
-//    @TokenPassRequired
+    @TokenPassRequired
     override fun create(
-        @Valid @RequestBody request: BookingCreateApiRequest
+        @Valid @RequestBody request: BookingCreateRequest
     ): ResponseEntity<Unit> {
 
-        val bookingId = bookingService.create(request.toServiceRequest())
+        val bookingId = bookingService.create(request.toCommand())
         return ResponseEntity
             .created(
                 UriComponentsBuilder

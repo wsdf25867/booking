@@ -8,7 +8,7 @@ data class PointChargeRequest(
     val amount: BigDecimal,
 ) {
 
-    fun toServiceRequest(): PointChargeServiceRequest {
-        return PointChargeServiceRequest(userId, amount)
+    fun toServiceRequest(): PointChargeCommand {
+        return PointChargeCommand(userId, amount)
     }
 }

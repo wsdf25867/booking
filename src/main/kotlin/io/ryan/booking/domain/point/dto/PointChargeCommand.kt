@@ -3,7 +3,7 @@ package io.ryan.booking.domain.point.dto
 import java.math.BigDecimal
 import kotlin.Long
 
-data class PointChargeServiceRequest(
+data class PointChargeCommand(
     val userId: Long,
     val amount: BigDecimal,
 ) {

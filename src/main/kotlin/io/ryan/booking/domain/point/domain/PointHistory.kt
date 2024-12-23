@@ -2,6 +2,7 @@ package io.ryan.booking.domain.point.domain
 
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.Table
 import java.math.BigDecimal
@@ -14,7 +15,7 @@ class PointHistory(
     val amount: BigDecimal,
     val operationType: PointOperationType,
     val createdAt: LocalDateTime = LocalDateTime.now(),
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 ) {
 }
