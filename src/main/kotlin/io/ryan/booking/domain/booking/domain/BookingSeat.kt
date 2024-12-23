@@ -2,29 +2,27 @@ package io.ryan.booking.domain.booking.domain
 
 import io.ryan.booking.domain.concert.domain.ConcertScheduleSeat
 import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.Embeddable
 import java.math.BigDecimal
 
-@Entity
-@Table(name = "booking_seat")
-class BookingSeat(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
+@Embeddable
+class BookingSeat private constructor(
 
-    seat: ConcertScheduleSeat,
+    @Column(name = "concert_schedule_seat_id")
+    val seatId: Long,
+
+    @Column(name = "price")
+    val price: BigDecimal,
 ) {
-    @Column(nullable = false)
-    val seatId: Long = seat.id
 
-    @Column(nullable = false)
-    val price: BigDecimal = seat.price
+    companion object {
+        operator fun invoke(seat: ConcertScheduleSeat): BookingSeat {
+            return create(seat)
+        }
 
-    init {
-        check(seat.isEmpty()) { "이미 선택된 좌석 입니다. seatId: ${seat.id}" }
+        fun create(seat: ConcertScheduleSeat): BookingSeat {
+            check(seat.isEmpty()) { "이미 예약된 좌석입니다. scheduleSeatId: ${seat.id}" }
+            return BookingSeat(seat.id, seat.price)
+        }
     }
 }

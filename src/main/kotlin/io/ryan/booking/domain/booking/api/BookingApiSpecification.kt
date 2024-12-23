@@ -6,5 +6,5 @@ import org.springframework.http.ResponseEntity
 @Tag(name = "Booking")
 interface BookingApiSpecification {
 
-    fun create(request: BookingCreateRequest): ResponseEntity<*>
+    fun create(request: BookingCreateApiRequest): ResponseEntity<*>
 }

@@ -1,21 +1,11 @@
 package io.ryan.booking.domain.concert.infra
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import io.ryan.booking.domain.outbox.domain.Outbox
 import io.ryan.booking.domain.outbox.domain.OutboxRepository
-import io.ryan.booking.domain.booking.domain.BookingCreatedEvent
 import io.ryan.booking.domain.concert.domain.BookingCreatedEventHandler
 import io.ryan.booking.domain.concert.domain.SeatRepository
-import jakarta.persistence.EntityNotFoundException
-import org.springframework.data.repository.findByIdOrNull
-import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.core.KafkaTemplate
-import org.springframework.kafka.support.Acknowledgment
-import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Component
-import org.springframework.transaction.annotation.Transactional
-import org.springframework.transaction.event.TransactionPhase
-import org.springframework.transaction.event.TransactionalEventListener
 
 @Component
 class BookingCreatedEventKafkaEventHandler(

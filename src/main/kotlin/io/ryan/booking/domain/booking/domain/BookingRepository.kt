@@ -14,7 +14,7 @@ interface BookingRepository: JpaRepository<Booking, Long> {
 
     @Query("select b from Booking b " +
             "where b.status = :status " +
-            "and b.bookingConcertSchedule.confirmableDateTime <= :currentDateTime")
-    fun findAllByStatusAndConfirmableDateTimeBefore(status: BookingStatus, currentDateTime: LocalDateTime): List<Booking>
+            "and b.payableDateTime <= :currentDateTime")
+    fun findAllByStatusAndPayableDateTimeBefore(status: BookingStatus, currentDateTime: LocalDateTime): List<Booking>
 
 }

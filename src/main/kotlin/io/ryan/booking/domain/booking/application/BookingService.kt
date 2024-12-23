@@ -8,27 +8,26 @@ import jakarta.persistence.EntityNotFoundException
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.time.Clock
-import java.time.LocalDateTime
 
 @Service
 class BookingService(
-    private val clock: Clock,
-    private val bookingRepository: BookingRepository,
     private val concertScheduleRepository: ConcertScheduleRepository,
     private val concertScheduleSeatRepository: ConcertScheduleSeatRepository,
+    private val bookingRepository: BookingRepository,
 ) {
 
     @Transactional
-    fun create(request: BookingCreateServiceRequest): Long {
+    fun create(request: BookingCreateRequest): Long {
         val (userId, scheduleId, seatIds) = request
 
         val concertSchedule = concertScheduleRepository.findByIdOrNull(scheduleId)
-            ?: throw EntityNotFoundException()
+            ?: throw EntityNotFoundException("콘서트 정보가 없습니다. concertScheduleId: $scheduleId")
         val seats = concertScheduleSeatRepository.findAllById(seatIds)
 
-        val bookedAt = LocalDateTime.now(clock)
-        val booking = Booking(userId, bookedAt, concertSchedule, seats)
+        val booking = Booking(userId, concertSchedule, seats)
+
         return bookingRepository.save(booking).id
     }
+
+
 }

@@ -17,9 +17,9 @@ class BookingController(
 ) : BookingApiSpecification {
 
     @PostMapping("/bookings")
-    @TokenPassRequired
+//    @TokenPassRequired
     override fun create(
-        @Valid @RequestBody request: BookingCreateRequest
+        @Valid @RequestBody request: BookingCreateApiRequest
     ): ResponseEntity<Unit> {
 
         val bookingId = bookingService.create(request.toServiceRequest())

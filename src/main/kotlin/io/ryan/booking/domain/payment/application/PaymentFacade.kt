@@ -33,7 +33,7 @@ class PaymentFacade(
         val history = point.use(seat.price)
         pointHistoryRepository.save(history)
 
-        booking.confirmWith(dto.paidAt)
+        booking.payed(dto.paidAt)
 
         val payment = Payment(booking.id, seat.price)
         val saved = paymentRepository.save(payment)
